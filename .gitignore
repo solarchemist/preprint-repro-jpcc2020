@@ -1,0 +1,37 @@
+# ignore generated figures
+figure/
+
+# ignored directories
+.Rproj.user/
+cache/
+renv/
+
+# ignored filetypes (in all subdirectories)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb*
+*.fls
+*.log
+*.lof
+*.lot
+*.out
+*.RData
+*.Rhistory
+*.Rproj
+*.run.xml
+*.sed
+*.spl
+*.sty
+*.sublime-project
+*.sublime-workspace
+*.toc
+*tikzDictionary
+*.docx
+*.pptx
+*.rtf
+
+# ignore specific files
+.knitme
+paper.pdf

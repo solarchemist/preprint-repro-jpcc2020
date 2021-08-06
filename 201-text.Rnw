@@ -1,0 +1,422 @@
+% !Rnw root = paper.Rnw
+
+
+\section{Introduction}
+
+Zinc oxide is an abundant and familiar material that has applications spanning from UV-absorbing additive in rubber \cite{Heideman2005} and sunscreens \cite{King2005,Serpone2007}, to high-tech applications in chemical sensing \cite{Rambu2013,Cai2013}, spintronics \cite{Sharma2004}, and photovoltaics \cite{Quintana2007,Boschloo2006}.
+The wide interest in low-dimensional \ch{ZnO} for optoelectronic applications is fuelled by its high carrier mobility \cite{Yoshikawa1997,Look1998,Kaidashev2003}, its direct wide band gap ($E_\text{g}$ $\sim\qty{3.3}{\eV}$), and a large exciton binding energy of \qty{60}{\meV} \cite{Ozgur2005} allowing room-temperature exciton emission.
+There are also intriguing size effects of \ch{ZnO} on the nano-scale below \qty{9}{\nm} in diameter, such as vibrational quantum confinement \cite{Raymand2012}, discontinuous exciton emission decay rate \cite{Jacobsson2014}, and quantum confined Stark effects \cite{Jacobsson2014a} that show that more is to be discovered even in this seemingly well-known material.
+Here, we focus on the optical and photochemical properties of \ch{ZnO} quantum dots with a special focus towards their possible application as photocatalysts in colloidal suspension for the degradation of distributed environmental threats.
+
+The formal quantum efficiency of photocatalysis is higher in smaller \ch{ZnO} quantum dots compared to larger ones and show an interplay between the accessible surface area and their ability to absorb photons in the solar spectrum \cite{Jacobsson2012} and is likely also related to the interaction and thus the weakening of excitons with charged surface states \cite{Jacobsson2014}.
+Here it is interesting to compare the properties of wurtzite \ch{ZnO} with that of the more extensively studied anatase \ch{TiO2}.
+Zinc oxide has a markedly higher absorption coefficient due to its direct band gap, almost the same conduction and valence band edges (\qty{-0.5}{\volt} and \qty{+2.8}{\voltNHE} at \mbox{pH\,5}) as \ch{TiO2} and the advantage of a higher charge carrier mobility \cite{Boschloo2006} showing more or less the same driving force for the reactions but a more effective absorption of light and improved carrier transport.
+There are also several studies reporting a more effective photocatalytic degradation of organic dyes for ZnO compared to \ch{TiO2} \cite{Sakthivel2003,Muruganandham2006,Yan2009a}.
+Although \ch{ZnO} does not have any intrinsic toxicology, the nanoscale size of the particles raises the issue of nano-toxicity where particles smaller than \qty{100}{\nm} typically introduce surface reactivities causing nanoscale toxicity \cite{Maynard2011, Maynard2011a}.
+However, the higher reactivity for nanoscale materials is a desirable property for the degradation of environmental threats where the high surface areas and the ability to penetrate into porous materials, such as soot particles and oils, are advantageous.
+If a dynamical nanoscale system, such as the slowly growing nanoparticles in this study, is applied towards photocatalysis the higher reactivity can be used when the particles are small and the system will then naturally be deactivated as the particles grow larger or aggregate among themselves or with their environment during the later stages of the process.
+The system with the photoactive \ch{ZnO} shows slow system growth and coalescence into aggregates and natural sedimentation to the bottom of the contaminated water container or, if applied at larger scale, to the bottom of the pond or sea to become a part of the natural sediment, thus deactivating its nano-toxicity.
+A key focus of our approach is to investigate the properties of low-dimensional \ch{ZnO} under growth by studying their optical and photocatalytic activity in the quantum confined regime ($d<\qty{9}{\nm}$) where the band gap of the particles changes during their growth with eventual aggregation and sedimentation for larger particles.
+
+The United Nations World water development report \cite{WWAP2017} identifies the effective removal of emerging pollutants 
+(such as pharmaceuticals, fragrances, pesticides and herbicides) 
+as one of the main challenges for the European region of the world, and as a large concern in other regions, where environmental regulations and laws may still lag behind industrial practices.
+When it comes to organic compounds, one effective approach to degrade such pollutants is to utilise the fact that the energy in UV-photons is high enough to break covalent bonds in molecules. 
+For some unstable molecules such direct illumination is enough to degrade them, but generally a photocatalyst is needed to overcome the activation barriers and significantly improve the degradation kinetics. 
+The effect is mediated \textit{via} various Reactive Oxygen Species (ROS), such as singlet oxygen \ch{^1O2}, superoxide radicals \ch{O2^{.-}},  hydroperoxyl radicals \ch{HO2^.}, hydroxyl radicals  \ch{^.OH}, and hydrogen peroxides \ch{H2O2} that are generated at the metal oxide surface upon UVA (\qtyrange{315}{400}{\nm}) irradiation in aqueous solutions \cite{Tachikawa2007}. 
+For \ch{ZnO}, the photo-generated holes in the valence band are generated with a higher rate compared to the indirect band gap semiconductor \ch{TiO2}, while having the photogenerated hole still sufficiently low in energy and thus highly oxidising (see~\cref{fig:schematic-and-solarlamp}).
+When water is present at the semiconductor surface, the photo-generated hole generates hydroxyl radicals (\ch{^.OH}) \cite{Herrmann2005,Chen2007d} that act as a strong non-selective oxidant. 
+The end result is often a complete mineralisation of the undesired chemicals into \ch{CO2}, water and mineral acids.
+
+In this paper, we show that a small change in \ch{ZnO} nanoparticle diameter leads to a large change in photocatalytic activity. The observed behaviour is a result of the size-dependent change of energy levels and the subsequent optical effect in the quantum-confined semiconductor system in aqueous suspension.
+
+
+
+
+
+\section{Methods}
+
+A series of methylene blue aqueous solutions of with concentrations of \qtylist{0.5;1;2;5;10;20;50;100}{\micromolar} were volumetrically prepared from methylene blue (powder, VWR Prolabo, CAS 61-73-4) weighed on a Mettler AT261 balance with \qty{0.01}{\mg} resolution, quantitatively transferred and diluted to the mark in volumetric glassware with deionised water (for volumes and dilution factors, see \cref{tabsi:mb-stock-solutions}). 
+The dye solutions were stored in bluecap glass bottles wrapped in aluminium-foil and stored in the dark.
+
+\ch{ZnO} nanoparticle suspensions were synthesised by mixing zinc acetate dihydrate, \ch{Zn(OAc)2 * 2 H2O}, Fluka, $\geqslant\qty{99.5}{\percent}$, and lithium hydroxide monohydrate, \ch{LiOH * H2O}, Sigma-Aldrich, $\geqslant\qty{99.0}{\percent}$, both dissolved in ethanol, \qty{99.5}{\percent}, following previously published routes \cite{Jacobsson2011,Meulenkamp1998,Spanhel1991}.
+In brief, each precursor was dissolved in \ch{EtOH} and diluted to \qty{50}{\ml} (\textit{cf.} \cref{tabsi:precursor-solutions}). 
+The precursor solutions were then quantitatively mixed and the time was noted (this represented the start of nanoparticle nucleation and growth).
+Our modifications to previous work included heating the \ch{LiOH} solution to around \qty{45}{\celsius} while flushing the head space with \ch{N2} to both increase the solubility of lithium hydroxide and decrease the chance of formation of the carbonate. 
+Just prior to mixing both precursor solutions were cooled in an ice bath for a few minutes.
+
+In all PC experiments, one part of the \ch{ZnO(EtOH)} NP suspension was mixed with nine parts of \qty{10}{\micromolar} \ch{MB(aq)} directly into a \qty{10}{\mm} PMMA cuvette (typically $\qty{0.2}{\ml}+\qty{1.8}{\ml}$, so the cuvette contained \ch{H2O}:\ch{EtOH} 90:10 by volume), which after an initial thorough but fast mixing was with a solar simulator (\qty{100}{\mW\per\square\cm}, Oriel/Newport class~A solar simulator with an AM1.5G optical filter) while recording a full UV/Vis/NIR spectrum perpendicular to the direction of illumination each minute for the duration of the experiment.
+
+
+The UV/Vis/NIR absorption measurements were performed using an OceanOptics HR-2000+ spectrometer with deuterium and halogen light sources.
+In all our measurements, a spectrum with \num{2048} evenly distributed points from \qtyrange{190}{1100}{\nm} were sampled with an integration time of \qty{1}{\ms} (each saved spectrum averaged \num{10} such measurements) using fibre-optic cables from the lamp to the cuvette holder and back to the spectrometer, such that the face of the cuvette being illuminated by the solar lamp was unobstructed. 
+We used PMMA cuvettes ($l=\qty{1}{\cm}$) with transparent walls and the top of the cuvette was left open to atmosphere during PC experiments. We observed some evaporative loss during a typical PC experiment (duration approximately \qty{150}{\minute}) but it was small and outweighed by the need to allow air into the cuvette.
+
+Band gap analysis was performed using Tauc plots, where the square of the absorption was plotted as a function of photon energy. 
+For a direct band gap semiconductor like \ch{ZnO}, the band gap is then given as the intercept of the fitted line with the abscissa. More details on the Tauc fit procedure can be found in the SI.
+
+For all recorded spectra, the methylene blue absorption band (roughly \qtyrange{500}{800}{\nm}) was baseline-fitted with a cubic spline function and peak-fitted with two Gaussian kernels in an automatic fashion using the scripting-capabilities of Fityk~1.3.1 \cite{Wojdyr2010}. 
+The baseline correction was needed because the baseline of the spectra increased continuously over the course of an experiment due to increased scattering, in turn due to processes involved with agglomeration of the nanoparticles with each other and with the organic species in solution over the course of an experiment.
+
+
+
+
+
+\section{Results and discussion}
+
+Under the scheme proposed in this paper, a suspension of \ch{ZnO} nanoparticles in their native growth solution would be added to a polluted water surface and with exposure to sunlight photocatalyse the breakdown of the organic pollutant followed by the aggregation and subsequent sedimentation of the catalyst particles themselves, effectively rendering them inert.
+Here we spectrometrically track both the \ch{ZnO} band edge and the methylene blue (MB) absorption band \textit{in-situ} under simulated solar illumination to gain insights into both how the optical properties of the QDs change, the effect of growth upon dilution and their photocatalytic activity during the process.
+
+
+
+\subsection{Optical properties of low-dimensional \ch{ZnO}}
+
+\begin{figure}[tb]
+\centering
+\begin{subfigure}[b]{\linewidth}
+\caption{}
+\label{fig:schematic}
+\includegraphics[width=\linewidth]{images/nanoparticle-redox}
+\end{subfigure}\\%
+\begin{subfigure}[b]{\linewidth}
+\caption{}
+\label{fig:solarlamp}
+<<'fig-solarlamp', ref.label='figref-solarlamp', eval=TRUE, warning=FALSE>>=
+@
+\end{subfigure}
+\caption{(\subref{fig:schematic}) Schematic of the different processes occurring on a catalyst nanoparticle's surface during photocatalysis in water, along with an energy diagram of the electronic states in low-dimensional \ch{ZnO}.
+(\subref{fig:solarlamp}) The ASTM AM1.5G solar spectrum (here shown only up to \qty{1000}{\nm}) overlaid with: UV absorbance of PMMA cuvette (grey area, \textit{c.f.} \cref{figsi:cuvette-PMMA-abs}), with the coloured areas showing the wavelength region of the solar spectrum absorbable by our smallest (yellow) and largest (blue) \ch{ZnO} NPs, respectively.
+The areas shaded in darker yellow and darker blue underline part of the spectrum of our laboratory's AM1.5G solar simulator (which outputs less UV and more VIS than the ASTM reference).}
+\label{fig:schematic-and-solarlamp}
+\end{figure}
+
+
+The optical properties of ultra-small \ch{ZnO} particles can theoretically be determined by solving the Schrödinger equation for the first excited state for a particle in a spherical well with radius $R$ for the kinetic energy and a higher frequency dielectric screening approach for the potential energy giving \cite{Brus1984,Jacobsson2011,Edvinsson2018}
+\begin{equation}
+E_\text{g} = %
+E_\text{g,\,bulk} +
+\frac{\hbar^{2}\pi^{2}}{2R^2} \left(\frac{1}{m_\text{e}^{*}} + \frac{1}{m_{h}^\text{*}}\right) %
+- \frac{1.8e^2}{\varepsilon R} +
+\frac{e^2}{R}\sum_{n=1}^{\infty} \alpha_\text{n} \left(\frac{r_\text{e} + r_\text{h}}{R}\right)^{2n}
+\end{equation}
+where $E_\text{g,bulk}$ is the band gap of the bulk material, $\hbar$ is Planck's constant, $\varepsilon$ is the dielectric constant of \ch{ZnO}, $e$ is the elementary charge, and $m_\text{e}^{*}$ and $m_\text{h}^{*}$ are the effective masses of the electron and hole, respectively.
+The second term is the increased kinetic energy from the localisation of the electron-hole pair confined within a sphere with radius $R$ and scales as $R^{-2}$.
+The third term is the Coloumb attraction in a screened environment and scales as $R^{-1}$.
+The last term describes the average polarisability for an electron and hole at position $r_\text{e}$ and $r_\text{h}$, respectively, with a polarisability $\alpha_\text{n} = \frac{(\varepsilon_\text{rel} - 1)(n + 1)}{\varepsilon_2(\varepsilon_\text{n} + n + 1)}$ where $\varepsilon_\text{rel} = \frac{\varepsilon_2}{\varepsilon_1}$ is the relative dielectic constant of a material with $\varepsilon_2$ in an environment with the dielectric constant $\varepsilon_1$-.
+This polarisation term goes to zero for a localised excitation in a screened environment, that is, if $r_\text{e} + r_\text{h} \ll R$. \cite{Brus1984}
+
+This gives a physical justification for a functional dependence between the band gap, $E_\text{g}$, in \unit{\eV} and the particle diameter, $d$, in \unit{\nm} as $E_\text{g} = C_1 + \frac{C_2}{d} + \frac{C_3}{d^2}$ where the coefficients $C_n$ are to be found from experimental data. 
+\textcite{Jacobsson2011} found that $C_1=\qty{3.301}{\eV}$, $C_2=\qty{0.293}{\eV\nm}$, and $C_3=\qty{3.94}{\eV\nm\squared}$ for low-dimensional \ch{ZnO} using growth conditions similar to ours.
+One can note that the use of bulk band gap $E_\text{g}=\qty{3.301}{\eV}$ intrinsically includes the exciton absorption in \ch{ZnO} as this cannot be deconvoluted from the experimental absorption onset at room temperature. 
+The mean diameter of the \ch{ZnO} nanoparticle ensemble is given by rearranging the previous formula into
+\begin{equation}\label{eq:diameter}
+d = \frac{2C_3}{-C_2 + \sqrt{C_2^2 - 4 C_3 (C_1 - E_\text{g})}}\text{.}
+\end{equation}
+
+
+To quantify the photocatalytic properties of the distributed particles, and in order to get a better idea of how the material would perform under natural sunlight, we used an AM1.5G solar simulator lamp (\textit{c.f.} \cref{fig:solarlamp}). \cite{ASTMG17303}
+The large band gap of \ch{ZnO} severely restricts the number of solar photons the material can absorb, and this is further exacerbated initially by the large band gap of the smallest-diameter particles.
+At $E\geqslant\qty{3.78}{\eV}$ only \qty{\Sexpr{round(min(bandgaps$init.cumflux.percent), 2)}}{\percent} of the AM1.5G photon flux is available to the \ch{ZnO} photocatalyst, and at the limit of the bulk band gap ($E\geqslant\qty{3.30}{\eV}$) \qty{\Sexpr{round(max(bandgaps$last.cumflux.percent), 2)}}{\percent} is available, or about 8~times more photons.
+This can be expressed as a relative (external) quantum efficiency (QE), which is the ratio of the available photon flux at the current band gap divided by the maximum available photon flux, $\Phi$, at the bulk band gap (which corresponds to unity when $E = E_\text{g}$).
+\begin{equation}\label{eq:relative-QE} % photon flux
+\mathrm{QE}_\text{rel} = %
+\frac{\Phi(E_\text{g})}{\Phi(E_\text{g} = E_\text{g,\,bulk})} \times d^2 
+\end{equation}%
+We should also note that while the band gap of the \ch{ZnO} nanoparticles (NPs) puts a lower limit on the photon energies our photocatalyst can potentially absorb, the absorption onset of the cuvette itself (made of polymethylmetacrylate, PMMA) applies an upper limit where absorption starts at \qty{280}{\nm}, which coincides with the high-energy terminus of the AM1.5G spectrum. But this limit could easily be circumvented by running the photocatalysis in an open (cuvette-less) system under natural sunlight.
+The surface area ($A=4\pi r^2$) affects the relative QE by a factor \num{10} (for NP diameters from approximately \qtyrange{4}{9}{\nm}).
+Looking at each factor in the relative QE, we may note that as the band gap increases, the relative QE decreases, and as the surface area (\textit{i.e.}, diameter) increases, the relative QE increases. 
+In total, the relative QE thus increases as the nanoparticles grow, from their spectral absorption increase, but at the same time their available surface area decreases.
+In terms of magnitude, and based on the ideal conditions we have implicitly assumed above (perfect spheres, smooth surfaces, etc.), both factors are well matched, as evident.
+So the smallest \ch{ZnO} NPs suffer the smallest surface area \emph{and} absorb the least amount of solar photons, while the largest \ch{ZnO} NPs enjoy the largest surface area and absorb an amount of solar photons approaching the bulk-limit. Based on this, we would not expect nanoparticles to confer any advantage. But they do, and it is primarily related to the higher catalytic efficiency seen for the smaller particles, thought to be closely related to the increased surface reactivity due to an increased incidence of surface defects and a higher degree of boundaries/edges between different crystalline surfaces.
+
+
+
+
+\subsection{Methylene blue}
+
+To probe the photoreactivity of the \ch{ZnO} nanoparticles we added them to an aqueous solution of \qty{10}{\micromolar} methylene blue, which is a cationic organic dye commonly employed as a model pollutant in photocatalysis \cite{Schubert1955}  and belongs to the group of thiazine dyes.
+\Cref{fig:MB-abs-coefficient} shows the chemical structure of methylene blue (bis-3,9-dimethylamino phenazothionium chloride), with the positive charge assigned to the thiazine sulfur.
+The cation is a heterocyclic aromatic (note that the amine nitrogens are part of the aromatic system and cannot rotate), with a single formal positive charge delocalised across the $\pi$-system.
+
+Although the use of methylene blue as a photocatalytic probe is widespread, in our opinion its application is complicated by several factors: %
+\begin{enumerate*}[label=\alph*)]%inline list
+\item oligomerisation in aqueous solution leading to metachromasy and non-trivial UV/Vis band assignment,
+\item solvent effects (due to mixing EtOH into the MB aqueous solution),
+\item self-degradation of MB under illumination, and
+\item photobleaching/decolourisation by a two-electron reduction breaking the aromaticity but otherwise leaving the molecule structurally intact (forming leuco methylene blue).
+\end{enumerate*}
+
+MB cations are also known to form di-, tri- and possibly even higher oligomers in aqueous solution (the \ch{MB+} stack with the $\pi$-systems facing each other, thus forming multi-layered \enquote{sandwiches}) likely driven by hydrophobic forces and dispersion forces between the planar $\pi$-systems. \cite{Cenens1988,Braswell1968,Schubert1955}
+The absorption band of the monomer is commonly reported at \qty{665}{\nm}, \cite{Heger2005,Cenens1988} and oligomerisation is indicated by other absorption bands: dimer at around \qty{610}{\nm} \cite{Heger2005,Jockusch1995,Ruprecht1984} and trimer at around \qty{565}{\nm} \cite{Heger2005} (all reported at RT). Naturally, the degree of oligomerisation in aqueous solution depends on the total MB concentration: 
+\textcite{Heger2005} observed dimers above \qty{1E-4}{\molar}, while \textcite{Jockusch1995} reported dimerisation above \qty{1E-5}{\molar}. The latter value agrees well with our spectrophotometric observations.
+
+Since a different solvent environment is expected to affect the rates and equilibrium positions of chemical reactions, as well as the position and intensity of UV/Vis absorption bands, \cite{Reichardt1994} we plotted the absorption coefficient of MB in aqueous solution and in \ch{H2O}:\ch{EtOH} (90:10) solution based on the measured absorbance spectra (\qtyrange{250}{900}{\nm}) for seven concentrations between \qtyrange[range-phrase=\ensuremath{\text{ and }}]{0.5}{50}{\micromolar} (\cref{fig:MB-abs-coefficient}) using Lambert-Beers law, $A(\lambda,c_n) = \alpha lc_n$
+where $A$ is the measured absorbance, $\alpha$ is the absorption coefficient, $l$ is the optical path length, and $c_\text{n}$ the concentration for species $n$.
+We used peak fitting with Gaussian profiles and found the monomer $n$-$\pi^\ast$ band at \qty{666}{\nm} (labelled \textsf{1} in \cref{fig:MB-water-fitted}), the \num{0}-\num{1} vibronic transition of the monomer band at \qty{627}{\nm} (\textsf{2}), the dimer band at \qty{608}{\nm} (\textsf{3}), and the monomer $\pi$-$\pi^\ast$ UV band at \qty{292}{\nm}. 
+All observed bands are listed in \cref{tabsi:MB-fitted}. 
+It has long been known that the dimerisation of MB disappears in solvents of lower dielectric constant (assuming constant temperature), \cite{Lewis1943} and our results show that dimerisation is completely suppressed in the \ch{H2O}:\ch{EtOH} 90:10 solvent (as evident by the suppressed dimer band, \textit{cf.} \cref{fig:MB-ethanol-fitted}).
+This suggests that EtOH preferentially solvates the MB cation, which is reasonable considering the lower hydrogen-bonding ability of \ch{EtOH} compared to \ch{H2O}.
+Furthermore, the MB spectrum in the presence of EtOH also serves to confirm the validity of our peak assignment in water, by clearly demonstrating that the \qty{627}{\nm} shoulder (\textsf{2}) is the \num{0}-\num{1} vibronic transition and not the dimer band, and also demonstrating that the two features overlap. 
+This point has been a cause for some confusion in the literature, where some authors have assigned the shoulder as either the vibronic band \emph{or} the dimer band, \cite{Heger2005,Parkanyi1993,Cenens1988,Bergmann1963} whereas in reality both features may have contributed to the observed shoulder (dependent on MB concentration, solvent composition, and temperature). 
+
+We measured the self-degradation of MB in \ch{H2O} and \ch{H2O}:\ch{EtOH} solution under 1~Sun illumination (see \cref{figsi:MB-self-degradation-spectra}) and found that MB was quite stable, as expected.
+The self-degradation rate was not completely linear over time, but nearly so, and remained consistent over more than \qty{200}{\minute}. The self-degradation rate was slightly slower in the EtOH-containing solvent.
+
+The final point that may complicate the analysis of MB degradation from UV/Vis absorption spectra is the reduction of the MB cation to its leuco (colourless) form, which can be expressed by the formula: \cite{Bard2008,Hallock2003,Resch1990}
+\begin{equation}\label{eq:MB-reduction}
+\ch{MB+ + H+ + 2 e- <=> MBH}
+\end{equation}
+We may note that the formation of LMB proceeds via the formation of a semi-reduced MB radical \ch{MB + e^-_{CB} -> MB^{.-}} that subsequently disproportionates \ch{2 MB^{.-} -> MB+ + MBH}. \cite{Mills1999}
+If the electrons come directly from the CB of the semiconductor, the reduced dye is expected to adhere to the \ch{ZnO} site, effectively poisoning the catalyst. \cite{Baruah2009,Bora2016} 
+The electrons could also come from a subsequently created oxygen radical, a sacrifical electron donor (SED), or acetate or even the ethanol solvent itself, but this process would also compete with the SEDs scavenging VB holes. \cite{DeTacconi1997}
+This photobleaching of MB can be reversed if \ch{O2} is bubbled into the solution: \ch{2 MBH + O2 -/> 2 MB+ + 2 H2O}. \cite{Mills1999}
+\textcite{DeTacconi1997} claims that MB recolouration can proceed even in the absence of dissolved oxygen, principally by electron transfer from LMB into the CB (or nearby trap states) of the oxide, although this is contested by \textcite{Mills1999}. 
+In any case, it is clear that MB can switch from a coloured (aromatic) state to a leuco state (with broken aromaticity) in a photoreduction process, and the leuco form has no absorption bands in the visible spectral range.
+
+\begin{figure}[tbp]
+\centering
+\begin{subfigure}[b]{\linewidth}
+\caption{}
+\label{fig:MB-abs-coefficient}
+<<'fig-MB-abs-coefficient', ref.label='figref-MB-abs-coefficient', eval=TRUE>>=
+@
+\end{subfigure}\\
+\begin{subfigure}[b]{0.49\linewidth}
+\caption{}
+\label{fig:MB-water-fitted}
+<<'fig-MB-water-fitted', ref.label='figref-MB-water-fitted', eval=TRUE, warning=FALSE, fig.width=1.75, fig.height=1.25, out.width='1.75in'>>=
+@
+\end{subfigure}%
+\hfill%
+\begin{subfigure}[b]{0.49\linewidth}
+\caption{}
+\label{fig:MB-ethanol-fitted}
+<<'fig-MB-ethanol-fitted', ref.label='figref-MB-ethanol-fitted', eval=TRUE, warning=FALSE, fig.width=1.75, fig.height=1.25, out.width='1.75in'>>=
+@
+\end{subfigure}%
+\caption{(\subref{fig:MB-abs-coefficient}) Absorption coefficients for methylene blue in \ch{H2O} and \ch{H2O:EtOH} (90:10 by volume) solutions, determined by experimentally measuring absorbance spectra for seven concentrations between \qtyrange[range-phrase=\ensuremath{\text{ and }}]{0.5}{50}{\micromolar}.
+The chemical structure of methylene blue is shown as inset.
+(\subref{fig:MB-water-fitted}, \subref{fig:MB-ethanol-fitted}) The components of the peak fit in the visible range are shown: absorption coefficients (black dots), sum of Gaussian profiles (blue line), Gaussian profiles (red line, numbered), and residual (azure line).
+Parameters of all fitted bands are listed in \cref{tabsi:MB-fitted}.}
+\label{fig:MB-abs-coefficients}
+\end{figure}
+
+In our estimation, and considering the aim of the present work, which is to evaluate the size-dependence of the photoreactivity of \ch{ZnO} nanoparticle suspensions during growth, MB is the most suitable dye as the ZnO QD properties also has to be compared to the vast literature of previous studies for various materials using MB as the probe.
+Another important consideration is that the dye should not have absorption bands overlapping the \ch{ZnO} band edge, which is wider in our case due to its dependence on the particle diameter.
+
+
+
+\subsection{Optical and photocatalytic properties}
+
+As the majority solvent is water and the minority solvent is ethanol, and their miscibility is expected to be complete, we can treat the solvent system as homogeneous after the initial mixing. 
+But on a more immediate time scale, we have water containing only methylene blue, while the ethanol phase contains a more complex mixture: precursors, namely \ch{Li+}, \ch{OH-}, \ch{Zn^{2+}}, \ch{CH3COO-}, along with growing ZnO nanoparticles and some water (from crystalline water in \ch{LiOH} and \ch{Zn(OAc)2}).
+The hydroxide and zinc ions will form the \ch{ZnO} nanoparticles, with the \ch{Li+} remaining in solution (or coordinated to the predominantly negatively charged \ch{ZnO} surfaces).
+The acetate ions are assumed to remain in solution. 
+With the cuvette open to atmosphere oxygen is free to dissolve in the solvent, but since \ch{O2} was not actively supplied during photocatalysis the oxygen content will at most be that of the oxygen solubility at room-temperature, namely \qty{\Sexpr{round(oxsolubility$mgperlitre, 1)}}{\mg\per\litre} (equivalent to \qty{\Sexpr{round(1E3 * oxsolubility$molperlitre, 2)}}{\mmol\per\litre} or approximately 10 molecules of dissolved \ch{O2} per million molecules of \ch{H2O}) \cite{Hitchman1978,water2018}.
+
+As we have discussed above, dye decolourisation is not always equal to decomposition: it can also occur when the dye is reduced, oxidised or adsorbed on the photocatalyst or the walls of the reactor. 
+A complete mineralisation of MB can require up to 70 consecutive oxidation steps where the formal quantum efficiency also can be \qty{0.1}{\percent} which means that only one out of \num{1000} photons will produce ROS that are photocatalytically active \cite{Jacobsson2012} for decolourisation. 
+Considering that reduction can interfere in both the initial de-colourisation as well as in subsequent steps, this makes the exact quantification of the full mineralisation complex. 
+In the present study, we utilise the de-colourisation kinetics as a relative measure of the photocatalytic efficiency as commonly done in the litterature but it has to be remembered that this intrinsically only quantifies the decolourisation process and not the spectrally invisible steps.
+
+\Cref{fig:MB-N04H-small-nostir-photodegradation} shows the recorded optical absorption spectra (with lines drawn with increasingly lighter shades of blue with progressing time $t$, and with the the first and last recorded spectrum highlighted in red) of a suspension of \ch{ZnO} QDs growing from a diameter of approximately \qty{3.2}{\nm} to \qty{6}{\nm} in the presence of MB and under solar illumination.
+The plot is drawn as a Tauc plot with the ordinate squared (since \ch{ZnO} has a direct band gap) and a straight line fitted to the \ch{ZnO} band edge of each spectrum, but with the $y$-axis square-root-transformed in order to not suppress the MB absorption peak visually (in comparison with the otherwise visually dominating band edge region).
+The clear upwards shift of the baseline over time is due to the increased scattering losses incurred from the increasing turbidity in the cuvette, which were likely due to the aggregation and interlinking of the growing \ch{ZnO} particles with the organic species in solution (the solution in the cuvette was observed to become more viscous). During the experiment, the cuvette contained methylene blue in a \ch{H2O}:EtOH 90:10 solution (by volume) in the presence of our ZnO nanoparticles (in suspension). The cuvette was under 1~Sun illumination.
+
+The plot displays the shifting absorbance onset (due to the changing quantum confinement) of the growing \ch{ZnO} QDs, and the concurrent bleaching of the MB band.
+The top inset (\cref{fig-a:MB-N04H-small-nostir-photodegradation}) of the same figure shows the decrease in absorbance of the main MB band with time, which shows that complete decolouration occurred after approximately \qty{100}{\minute}.
+
+The straight line (yellow) fitted to each band edge shows the result of the Tauc analysis of each spectrum, and the calculated optical band gap (\textit{i.e.}, the intersection of each yellow line with the abscissa) is plotted in the bottom inset (\cref{fig-b:MB-N04H-small-nostir-photodegradation}) along with the calculated particle diameter (both vs time).
+The Tauc analysis shows that the already aged \ch{ZnO} nanoparticles in suspension grow slowly during the experiment from \qty{3.2}{\nm} to close to \qty{6}{\nm} during \qty{140}{\minute} (2h and 20 minutes). Note that the band edge gradually flattens out with time (see main plot), rendering the Tauc analysis more incertain after around \qty{20}{\minute}.
+
+The methylene blue absorption peak was analysed by peak fitting the two main bands (compare the highlighted box in the plot) and finding the peak intensity for each spectrum at $\approx\qty{665}{\nm}$. The thus determined peak intensity was plotted vs time in the bottom-right inset, \cref{fig-a:MB-N04H-small-nostir-photodegradation}. The decolourisation proceeded quickly and reached a minimum after \qty{25}{\minute}, then rebounded and continued at a steady rate until the end of the experiment.
+
+Tauc analysis of the optical band gap from the absorption data of the \ch{ZnO} quantum dots with a larger starting size: \qty{5.8}{\nm}, \qty{6.7}{\nm}, and \qty{7.4}{\nm}, respectively are presented in condensed form in \cref{fig:MB-panels-nostir-photodegradation}. Detailed plots along the lines of the first plot for these experiments are available in the SI.
+
+For starting diameters of \qty{5.8}{\nm} (as well as starting sizes of \qty{3.2}{\nm}), a complete decolourisation is seen during the experiment while the particles with initially larger sizes (\qty{6.7}{\nm} and \qty{7.4}{\nm}) show faster initial kinetics but also a marked minimum after around \qty{25}{\minute}, then rebounding and continuing to proceed at a steady rate until the end of the experiment. The reason behind this is not clear but was seen for repeated experiments and is related to \begin{enumerate*}[label=\alph*)]%
+\item faster initial decolourisation kinetics in combination with
+\item a slow secondary decolourisation process extending significantly beyond \qty{150}{\minute} (\cref{fig:MB-N02A-small-nostir-mbabs,fig:MB-N04H-medium-nostir-mbabs}).
+\end{enumerate*}
+One possible explanation is that the larger particles to a larger extent caused reduction of methylene blue and thus deactivated the oxidation process. To fully resolve this, spectral signatures and mass spectrosopy is needed and is an interesting topic for a more specialised study of possibly different mechanisms dominating for different sizes and extent of exposed Miller indices of the ZnO particles. The results show that a considerable increase in the photocatalytic activity can be achieved by starting with low-dimensional \ch{ZnO} ($<\qty{6}{\nm}$) where the different behaviour for the larger sizes instead can be utilized in experiments where size selective effects are desired.
+
+
+\begin{figure*}[tbp]
+\centering
+<<'fig-MB-N04H-small-nostir-photodegradation', ref.label='figref-MB-N04H-small-nostir-photodegradation', fig.width=6.80, fig.height=4.20, out.width='6.80in', eval=TRUE, warning=FALSE>>=
+@
+{\phantomsubcaption\label{fig-a:MB-N04H-small-nostir-photodegradation}}
+{\phantomsubcaption\label{fig-b:MB-N04H-small-nostir-photodegradation}}
+\caption{Optical absorption spectra recorded under 1~Sun illumination from $t=0$ (when ultra-small \ch{ZnO(EtOH)} nanoparticles were added to the \ch{MB(aq)} dye solution) until $t>\qty{2}{\hour}$ with $\Delta t=\qty{1}{\minute}$.
+The top inset (\subref{fig-a:MB-N04H-small-nostir-photodegradation}) shows the fitted height of the strongest methylene blue absorption peak vs time.
+The bottom inset (\subref{fig-b:MB-N04H-small-nostir-photodegradation}) shows the result of a Tauc analysis on the band edge (the Tauc fits are highlighted by the yellow lines intersecting the band edge region of each spectrum in the main plot).}
+\label{fig:MB-N04H-small-nostir-photodegradation}
+\end{figure*}
+
+
+\begin{figure*}[tbp]
+\centering
+\begin{subfigure}[b]{0.33\linewidth}
+\caption{}%a
+\label{fig:MB-N02A-small-nostir-mbabs}
+<<'fig-MB-N02A-small-nostir-mbabs', ref.label='figref-MB-N02A-small-nostir-mbabs', eval=TRUE, warning=F, fig.width=2.3, fig.height=1.42, out.width='2.30in'>>=
+@
+\end{subfigure}%
+\hfill%
+\begin{subfigure}[b]{0.33\linewidth}
+\caption{}%b
+\label{fig:MB-N04H-medium-nostir-mbabs}
+<<'fig-MB-N04H-medium-nostir-mbabs', ref.label='figref-MB-N04H-medium-nostir-mbabs', eval=TRUE, warning=F, fig.width=2.3, fig.height=1.42, out.width='2.30in'>>=
+@
+\end{subfigure}%
+\hfill%
+\begin{subfigure}[b]{0.33\linewidth}
+\caption{}%c
+\label{fig:MB-N02A-large-nostir-mbabs}
+<<'fig-MB-N02A-large-nostir-mbabs', ref.label='figref-MB-N02A-large-nostir-mbabs', eval=TRUE, warning=F, fig.width=2.3, fig.height=1.42, out.width='2.30in'>>=
+@
+\end{subfigure}\\%
+\begin{subfigure}[b]{0.33\linewidth}
+\caption{}%d
+\label{fig:MB-N02A-small-nostir-edge}
+<<'fig-MB-N02A-small-nostir-edge', ref.label='figref-MB-N02A-small-nostir-edge', eval=TRUE, warning=F, fig.width=2.3, fig.height=1.42, out.width='2.30in'>>=
+@
+\end{subfigure}%
+\hfill%
+\begin{subfigure}[b]{0.33\linewidth}
+\caption{}%e
+\label{fig:MB-N04H-medium-nostir-edge}
+<<'fig-MB-N04H-medium-nostir-edge', ref.label='figref-MB-N04H-medium-nostir-edge', eval=TRUE, warning=F, fig.width=2.3, fig.height=1.42, out.width='2.30in'>>=
+@
+\end{subfigure}%
+\hfill%
+\begin{subfigure}[b]{0.33\linewidth}
+\caption{}%f
+\label{fig:MB-N02A-large-nostir-edge}
+<<'fig-MB-N02A-large-nostir-edge', ref.label='figref-MB-N02A-large-nostir-edge', eval=TRUE, warning=F, fig.width=2.3, fig.height=1.42, out.width='2.30in'>>=
+@
+\end{subfigure}
+%
+\caption{Absorption of the dye during the decolourisation process, and band gap and size of the growing ZnO QDs for particles with starting diameters of 
+(\subref{fig:MB-N02A-small-nostir-mbabs}, \subref{fig:MB-N02A-small-nostir-edge}) \qty{3.2}{\nm}, 
+(\subref{fig:MB-N04H-medium-nostir-mbabs}, \subref{fig:MB-N04H-medium-nostir-edge}) \qty{5.8}{\nm}, and 
+(\subref{fig:MB-N02A-large-nostir-mbabs}, \subref{fig:MB-N02A-large-nostir-edge}) \qty{6.7}{\nm}.}
+\label{fig:MB-panels-nostir-photodegradation}
+\end{figure*}
+
+
+\begin{figure*}[tbp]
+\centering
+<<'fig-MB-N04E-large-nostir-photodegradation', ref.label='figref-MB-N04E-large-nostir-photodegradation', fig.width=6.80, fig.height=4.20, out.width='6.80in', eval=TRUE, warning=FALSE>>=
+@
+{\phantomsubcaption\label{fig-a:MB-N04E-large-nostir-photodegradation}}
+{\phantomsubcaption\label{fig-b:MB-N04E-large-nostir-photodegradation}}
+\caption{Optical absorption spectra recorded under 1~Sun illumination from $t=0$ until $t>\qty{2}{\hour}$ with $\Delta t=\qty{1}{\minute}$.
+The cuvette contained methylene blue in \ch{H2O}:EtOH 90:10 (by volume) in the presence of \ch{ZnO} nanoparticles with $d<\qty{10}{\nm}$ in suspension.
+The top inset (\subref{fig-a:MB-N04E-large-nostir-photodegradation}) shows the fitted height of the strongest methylene blue absorption peak vs time.
+The bottom inset (\subref{fig-b:MB-N04E-large-nostir-photodegradation}) shows the result of a Tauc analysis on the band edge (the Tauc fits are highlighted by the yellow lines intersecting the band edge region of each spectrum in the main plot).}
+\label{fig:MB-N04E-large-nostir-photodegradation}
+\end{figure*}
+
+
+
+
+%%% MB data: kinetics
+\begin{figure*}[tbp]
+\centering
+<<'fig-MB-ratio-fityk-CC0', ref.label='figref-MB-ratio-fityk-CC0', fig.width=6.80, fig.height=4.20, out.width='6.80in', eval=TRUE, warning=FALSE>>=
+@
+\caption{Decolourisation of MB with \ch{ZnO} NPs of varying initial diameter, $d_\text{i}$.}
+\label{fig:MB-ratio-fityk-CC0}
+\end{figure*}
+
+
+\begin{table}[tbp]
+\centering
+\begin{small}
+\caption{Fitted rate constants for the two different regions of the decolourisation curves, per \cref{eq:logconc-kobs}.}
+\label{tab:kinpar-MB}
+<<'tab-kinetic-parameters-MB', ref.label='tabref-kinetic-parameters-MB', eval=TRUE, results='asis', cache=FALSE>>=
+@
+\end{small}
+\end{table}
+
+
+
+Apart from the rate of electrons and holes reaching the surface of the \ch{ZnO} particles and the reactivation of the active sites after the first reaction, the decolourisation kinetics also depends on the transport of reactants, by molecular diffusion and/or convective transport. This in turn can be changed by adding a velocity gradient (flow near surface) or a changed concentration gradient. In this study we do not aim for an optimised degradation speed (where stirring or higher concentration of the model pollutant would be beneficial) but instead aim to observe the inherent kinetics of the process. In either case, the surface reactions create a surface concentration different from the bulk liquid and allow a concentration difference to exist between the bulk and the reactive surface. This difference is also related to challenges in correlating the intrinsic reaction rate, $r$, using the measurable bulk concentration $C_\text{b}$ rather than the unattainable surface concentration, $C_\text{s}$.  Nevertheless, utilising a system without external stirring and at ambient conditions would give a relative comparison of the kinetics of decolourisation between the ZnO quantum dots growing from different starting sizes.
+Under steady state conditions, intermediates such as \ch{^.OH}, \ch{e^-(aq)}, and \ch{O2^{.-}} that destroy the dye molecules and eventually mineralise the pollutant, may in an ideal situation react exclusively with the intact dye molecules with decolourisation as a result. A rate equation for dye decolourisation can then be given by the differential equation:
+\begin{equation}
+-\frac{d[\text{dye}]}{dt} = k_\text{eff} [\text{int}] [\text{dye}]
+\end{equation}%
+In the equation, $[\text{dye}]$ represents the dye concentration, $[\text{int}]$ is the intermediate radical concentration, and $k_\text{eff}$ is a second-order rate coefficient. Since the reaction of the hole at the valence band of ZnO is expected to be the most active one due to the low-lying states and high driving force, \ch{^.OH} is often considered the main active radical. Both the dye and the products should be diffusion limited; where the rate equation above assumes an effective rate constant for both reactions, $k_\text{eff}$. 
+A logarithmic time dependence of the initial rate is obtained after integration with a rate parameter \emph{via} $k_\text{obs} = r_\text{OH}/[\text{dye}]_0$:
+\begin{equation}\label{eq:logconc-kobs}
+\ln\frac{[\text{dye}]}{[\text{dye}]_0} = -\frac{r_\text{OH}}{[\text{dye}]_0}t = -k_\text{obs}t
+\end{equation}%
+ where $r_{[\text{OH}]}$ is the rate of \ch{OH} generation and $[\text{dye}]_{0}$ is the initial concentration of the dye.
+ 
+ \Cref{fig:MB-ratio-fityk-CC0} shows that the suspension using small nanoparticles ($<\qty{6}{\nm}$) photocatalytically decolourises methylene blue completely within less than \qty{100}{\minute}. In a marked contrast, the suspensions of large nanoparticles ($>\qty{6}{\nm}$) caused an initial fast decolourisation that rebounded up to what appears to be an stable dynamic equilibrium at approximately $0.3C/C_0$ (see \cref{fig:MB-ratio-fityk-CC0}). This can be rationalised if we consider a situation where two competing processes occur at the photocatalyst surface: production of hydroxyl radicals (due to photo-oxidation on the ZnO NPs) and production of (su)peroxides due to photo-reduction. Now these will in turn oxidise or reduce the organic species (limited by diffusion/mass transport) which also leads to decolourisation.
+ 
+This \enquote{dip} in the MB decolourisation becomes more and more pronounced with larger initial catalyst size (\textit{cf.} \cref{fig-a:MB-N04H-small-nostir-photodegradation,fig:MB-N02A-small-nostir-mbabs,fig:MB-N04H-medium-nostir-mbabs,fig:MB-N02A-large-nostir-mbabs,fig-b:MB-N04E-large-nostir-photodegradation}).
+
+\Cref{tab:bandgaps} summarises the optical results and the calculated band gaps and nanoparticle diameters for the different sizes we tested, and also shows the available photon flux under AM1.5G irradiation given the particle band gap.
+The photon flux ranges from  \qty{0.14}{\percent} for the smallest nanoparticles, to \qty{1.19}{\percent} for the largest (expressed as a percentage of the total AM1.5G flux).
+
+
+<<'tab-bandgaps', ref.label='tabref-bandgaps', eval=TRUE, results='asis', cache=FALSE>>=
+@
+
+
+<<'tab-growthrate', ref.label='tabref-growthrate', eval=TRUE, results='asis', cache=FALSE>>=
+@
+
+
+\begin{figure*}[tbh]
+\centering
+\begin{subfigure}[b]{0.48\linewidth}
+\caption{}
+\label{fig:NPBE-diameter-all}
+<<'fig-NPBE-diameter-all', ref.label='figref-NPBE-diameter-all', eval=TRUE, warning=FALSE>>=
+@
+\end{subfigure}%
+\hfill%
+\begin{subfigure}[b]{0.48\linewidth}
+\caption{}
+\label{fig:growthrate-vs-initial-diameter}
+<<'fig-growthrate-vs-initial-diameter', ref.label='figref-growthrate-vs-initial-diameter', eval=TRUE, warning=FALSE>>=
+@
+\end{subfigure}%
+\caption{(\subref{fig:NPBE-diameter-all}) Evolution of \ch{ZnO} nanoparticle diameter during photocatalytic degradation. The semi-transparent coloured ribbons denote the error in $d$, as propagated from the original error estimate in $E_\text{g}$. The blue lines show the linear fit (fitted to the first \qty{10}{\minute} and extrapolated).
+The growth rate for each particle size is estimated as the slope of the fitted line, and plotted vs particle size in (\subref{fig:growthrate-vs-initial-diameter}). The blue line is a quadratic function fit. The horizontal errors are shown as error-bars, and the vertical error-bars (not shown) are the same as in (\subref{fig:NPBE-diameter-all}).
+Parameters for the linear fits are tabulated in \cref{tab:growthrate}.}
+\label{fig:diameter-and-growthrate}
+\end{figure*}
+
+\Cref{fig:diameter-and-growthrate} shows the diameter of the \ch{ZnO} nanoparticles as determined spectrophotometrically \textit{via} Tauc analysis of the measured band edge.
+
+Considering \cref{fig:NPBE-diameter-all}, we may note that as the initial nanoparticle size increases, the point at which the band gap becomes impossible to track (recall that the band edge gradually diminishes in magnitude until it flattens completely, a process which occurs faster for the initially larger nanoparticles) which can be seen in the plot as the data points trail off at earlier time $t$ for larger $d$. This supports our notion that the photocatalytic reaction results in the nanoparticles agglomerating with each other and the organic species in solution.
+In \cref{fig:growthrate-vs-initial-diameter} the initial \ch{ZnO} nanoparticle size is plotted against the growth rate fitted previously, and apart from a gap in sizes due to experimental reasons the relationship appears to agree fairly well with a quadratic behaviour.
+
+As the \ch{ZnO} nanoparticles grow, their band gap shrinks due primarily to a decreasing CB level, their VB energy stays essentially fixed \cite{Jacobsson2012a}. We would thus expect larger \ch{ZnO} nanoparticles to have gradually less reductive potential, whereas their oxidative potential is expected to remain largely the same.
+From the experimental results, however, the situation is shown to be more complex.
+As the direct reduction of MB from electrons in the \ch{ZnO} is competing with successive reduction of ROS from \ch{O2} to superoxide radicals \ch{O2^{.-}} to hydroperoxide \ch{H2O2} and eventually to the strongly oxidising hydroxyl radical \ch{^.OH}, the results show that the reduction potential for the competitive disproportionation (of \ch{O2^{.-}} into \ch{H2O2}) is insufficient for the oxidation path for the larger \ch{ZnO} particles.
+
+
+The different behaviour for small and large-diameter ZnO is interesting, though, opening a possibility to target different photocatalytic reactions by a size-selective process. 
+
+
+
+
+\section{Conclusions}
+
+The optical and photocatalytic properties of \ch{ZnO} QD suspensions were analysed in the quantum confined regime ($d<\qty{9}{\nm}$) in a system targeted to photocatalytically degrade environmentally distributed pollutants.
+The particles form a system growing from \qty{3.2}{\nm} to larger sizes where the optical and photocatalytic properties were characterised by spectroscopically monitoring the \ch{ZnO} QDs and the model organic pollutant (methylene blue) simultaneously. \ch{ZnO} QD suspensions with particle sizes starting from \qty{3.2}{\nm} up to \qty{6}{\nm} effectively photodegraded methylene blue under solar (AM1.5G) irradiation. During photodegradation the \ch{ZnO} QDs grow and eventually aggregate and form a light-scattering suspension, indicative of the formation of large-enough aggregates to allow sedimentation and natural deactivation in the bulk liquid phase. The results suggest that small QDs ($d<\qty{6}{\nm}$) promote the almost complete photo-oxidation (degradation) of MB, whereas larger QDs ($d>\qty{6}{\nm}$) caused a lesser amount of photo-oxidation coupled with a photo-reduction process that instead opens for size selective photocatalysis. Here, we have shown that \ch{ZnO} QDs could find use as a cheap and potentially harmless counter-measure for distributed environmental threats, by utilising its temporary high chemical reactivity (hours) after deactivation by growth and sedimentation to avoid complications with nano-toxicity.
+
+
+
+\section*{Conflicts of interest}
+There are no conflicts to declare.
+
+
+
+\section*{Acknowledgements}
+The authors would like to acknowledge Pierre Sandin for his contributions to the photocatalytic experiments, and Lars Österlund for valuable discussions regarding photocatalysis.

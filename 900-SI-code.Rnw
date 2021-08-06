@@ -1,0 +1,1159 @@
+% !Rnw root = paper.Rnw
+
+<<'figsiref-cuvette-PMMA-abs', eval=FALSE, echo=FALSE>>=
+ggplot(cuvettes %>%
+          filter(sampleid %in% c("Air", "\\ch{H2O}", "EtOH")) %>%
+          filter(wavelength > 200 & wavelength < 1000)) +
+   geom_line(aes(x = wavelength, 
+                 y = intensity,
+                 colour = sampleid)) +
+   labs(colour = "In PMMA cuvette:",
+        x = "$\\lambda/\\unit{\\nm}$",
+        y = "$\\absorbance/\\text{au}$") +
+   theme_singlecolumn() +
+   theme(legend.position = c(0.98, 0.98),
+         legend.justification = c(1, 1))
+@
+
+
+<<'load-mb-abs-spectra'>>=
+mbabs.files <-
+   list.files(
+      path = here("data/OOHR2000/baseline/H02A"),
+      pattern = "*.txt",
+      full.names = TRUE)
+conc.mb <-
+   c(100, 100, 50, 50, 20, 20, 10, 10,
+     5, 5, 2, 2, 1, 1, 0.5, 0.5) # uM
+# collect mbabs.files into dataframe
+df.mb <-
+   cbind(OO2df(datafile = mbabs.files[1], version = "1"),
+         conc = conc.mb[1])
+for (i in 2:length(mbabs.files)) {
+   df.mb <-
+      rbind(df.mb,
+            cbind(OO2df(datafile = mbabs.files[i], version = "1"),
+                  conc = conc.mb[i]))
+}
+# H02AA saturated the detector, drop it
+df.mb <- df.mb[-which(df.mb$sampleid %in% c("H02AA", "H02AA+EtOH")), ]
+@
+
+
+<<'manipulate-mb-abs-spectra'>>=
+# add a simple identifier for each dye
+df.mb$dye <- "MB"
+# add an identifier for solution (H2O or H2O+EtOH)
+df.mb$solution <- "H2O"
+df.mb$solution[grep("+EtOH$", df.mb$sampleid)] <- "H2O+EtOH"
+# remove the noisy ends of the spectra
+df.mb <- subset(df.mb, (wavelength < 1050) & (wavelength > 260))
+@
+
+
+<<'figsiref-methyleneblue-water-ethanol', eval=FALSE, echo=FALSE>>=
+ggplot() +
+   geom_path(data = subset(df.mb, (wavelength < 800) & (wavelength > 200)),
+             aes(x = wavelength, y = intensity, group = sampleid)) +
+   facet_wrap(~ solution) +
+   labs(x = "$\\lambda/\\unit{\\nm}$",
+        y = "$A$") +
+   scale_y_sqrt() +
+   theme_singlecolumn() +
+   theme(legend.position = c(0, 1),
+         legend.justification = c(0, 1)) 
+@
+
+
+<<'figsiref-MB-water-fitted', eval=FALSE, echo=FALSE>>=
+df <- read.table(here("data/OOHR2000/baseline/H02A/H02AB.dat"))
+names(df) <- 
+   c("wl", "abs", "active.points", 
+     "F1", "F2", "F3", "F4",
+     "model", "residuals")
+ggplot() + 
+   geom_point(data = df %>% filter(active.points == 0),
+              aes(x = wl, y = abs),
+              colour = "gray",
+              size = 0.4) +
+   geom_point(data = df %>% filter(active.points == 1),
+              aes(x = wl, y = abs),
+              size = 0.4) +
+   geom_line(data = df,
+              aes(x = wl, y = model),
+              colour = "blue") +
+   # residuals
+   geom_line(data = df %>% filter(active.points == 1),
+              aes(x = wl, y = residuals),
+              colour = alpha("blue", 0.3)) +
+   geom_line(data = df,
+             aes(x = wl, y = F1),
+             colour = "red") +
+   geom_line(data = df,
+             aes(x = wl, y = F2),
+             colour = "red") +
+   geom_line(data = df,
+             aes(x = wl, y = F3),
+             colour = "red") +
+   geom_line(data = df,
+             aes(x = wl, y = F4),
+             colour = "red") +
+   geom_text(data = mb.bands.fitted %>% filter(solvent == "H2O"),
+             aes(x = center, y = height - 0.15, label = peak),
+             colour = "red",
+             size = 2) +
+   coord_cartesian(xlim = c(350, 850),
+                   ylim = c(0, 2.8)) +
+   scale_x_continuous(breaks = seq(200, 1000, 100)) +
+   labs(y = "$A$",
+        x = "$\\lambda/\\unit{\\nm}$") +
+   theme_singlecolumn()
+@
+
+
+
+<<'figsiref-MB-ethanol-fitted', eval=FALSE, echo=FALSE>>=
+df <- read.table(here("data/OOHR2000/baseline/H02A/H02AB+EtOH.dat"))
+names(df) <- 
+   c("wl", "abs", "active.points", 
+     "F1", "F2", "F3",
+     "model", "residuals")
+ggplot() + 
+   geom_point(data = df %>% filter(active.points == 0),
+              aes(x = wl, y = abs),
+              colour = "gray",
+              size = 0.4) +
+   geom_point(data = df %>% filter(active.points == 1),
+              aes(x = wl, y = abs),
+              size = 0.4) +
+   geom_line(data = df,
+              aes(x = wl, y = model),
+              colour = "blue") +
+   # residuals
+   geom_line(data = df %>% filter(active.points == 1),
+              aes(x = wl, y = residuals),
+              colour = alpha("blue", 0.3)) +
+   geom_line(data = df,
+             aes(x = wl, y = F1),
+             colour = "red") +
+   geom_line(data = df,
+             aes(x = wl, y = F2),
+             colour = "red") +
+   geom_line(data = df,
+             aes(x = wl, y = F3),
+             colour = "red") +
+   geom_text(data = mb.bands.fitted %>% filter(solvent == "H2O+EtOH"),
+             aes(x = center, y = height - 0.15, label = peak),
+             colour = "red",
+             size = 2) +
+   coord_cartesian(xlim = c(350, 850),
+                   ylim = c(0, 2.8)) +
+   scale_x_continuous(breaks = seq(200, 1000, 100)) +
+   labs(y = "$A$",
+        x = "$\\lambda/\\unit{\\nm}$") +
+   theme_singlecolumn()
+@
+
+
+
+<<'tabsiref-MB-fitted', eval=FALSE, echo=FALSE>>=
+xtab.mb.bands.fitted <- 
+   mb.bands.fitted %>% 
+   select(center, height, fwhm, solvent, peak) %>% 
+   mutate(solvent = sub("H2O", "\\\\ch{H2O}", sub("\\+", ":", solvent))) %>%
+   mutate(height = signif(height, 3)) %>%
+   arrange(solvent, peak) %>%
+   xtable()
+caption(xtab.mb.bands.fitted) <- 
+   paste("Peak fitting parameters for the absorption coefficient curves shown in \\cref{fig:MB-abs-coefficients}.",
+         "")
+label(xtab.mb.bands.fitted) <- "tabsi:MB-fitted"
+names(xtab.mb.bands.fitted) <- 
+   c("{$\\lambda/\\unit{\\nm}$}",
+     "{$\\alpha/\\unit{\\litre\\per\\mole\\per\\cm}$}",
+     "{FWHM/\\unit{\\nm}}",
+     "{Solvent}",
+     "{No.}")
+digits(xtab.mb.bands.fitted) <- 
+   c(0, #row.names
+     0, #center
+     0, #height
+     0, #fwhm
+     0, #solvent
+     1) #peakno
+display(xtab.mb.bands.fitted) <- 
+   c("s", #row.names
+     "f", #center
+     "f", #height
+     "f", #fwhm
+     "s", #solvent
+     "d") #peakno
+align(xtab.mb.bands.fitted) <- 
+   c("l", #row.names
+     "S[table-format=3.0]", #center
+     "S[table-format=5.0]", #height
+     "S[table-format=3.0]", #fwhm
+     "c", #solvent
+     "S[table-format=1.0]") #peakno
+print(xtab.mb.bands.fitted,
+      floating = TRUE,
+      floating.environment = "table",
+      table.placement = "tbp",
+      caption.placement = "top",
+      hline.after = NULL,
+      add.to.row = list(pos = list(-1, 
+                                   0, 
+                                   7,
+                                   nrow(xtab.mb.bands.fitted)),
+                        command = c("\\toprule\n", 
+                                    "\\midrule\n", 
+                                    "\\cmidrule(lr){1-5}\n",
+                                    "\\bottomrule\n")),
+      include.rownames = FALSE,
+      include.colnames = TRUE,
+      type = "latex",
+      tabular.environment = "tabular",
+      latex.environments = c("center", "small"),
+      sanitize.text.function = function(x){x},
+      math.style.negative = FALSE)
+@
+
+
+
+
+
+
+<<'figsiref-conductivity-MB-solutions', eval=FALSE, echo=FALSE>>=
+solutions <- read.csv(here("data/pH-conductivity.csv"))
+solutions$logn.concentration <- log(solutions$concentration)
+solutions$logn.conductivity <- log(solutions$conductivity)
+lmn.solutions <- 
+   lm(logn.conductivity ~ logn.concentration, 
+      data = solutions %>% 
+         filter(solute == "MB"))
+ggplot(data = solutions %>%
+          filter(solute == "MB"),
+       aes(y = conductivity,
+           x = concentration)) +
+   geom_smooth(method = "lm") +
+   geom_line() +
+   geom_point() +
+   scale_y_log10(breaks = c(2, 5, 10)) +
+   scale_x_log10(breaks = c(0.5, 1, 2, 5, 10, 20, 50, 100),
+                 labels = c(0.5, 1, 2, 5, 10, 20, 50, 100)) +
+   annotation_logticks(base = 10, sides = "bl", scaled = TRUE) +
+   labs(x = "$c/\\unit{\\micro\\molar}$",
+        y = "Conductivity/\\unit{\\micro\\siemens\\per\\cm}") +
+   theme_singlecolumn()
+@
+
+
+<<'self-degradation-H02AD'>>=
+df.rawabs.selfdeg <- LoadRData2Variable(here("data/abs-selfdeg.rda.gz"))
+# remove the noisy ends 
+df.abs.selfdeg <- 
+   subset(subset(df.rawabs.selfdeg, intensity >= 0), 
+    (wavelength >= 265) & (wavelength <= 1050))
+# add time (in minutes)
+df.abs.selfdeg$time.deg <- as.numeric(gsub("^.*-", "", df.abs.selfdeg$sampleid))
+# abs in MB main peak region
+spregion.MB.main <- 
+   subset(subset(df.abs.selfdeg, time.deg == 0), 
+          (wavelength >= MB.band - 0.5 * MB.bandwidth) 
+          & (wavelength <= MB.band + 0.5 * MB.bandwidth))$wavelength
+MB.main.abs <- 
+   subset(df.abs.selfdeg, wavelength %in% spregion.MB.main)
+# we use plyr::ddply() to calculate the mean abs inside the band centered at the water peak
+MB.main.absmean <-
+   plyr::ddply(MB.main.abs, "sampleid",
+         function(x) {
+            data.frame(solvent = unique(x$solvent),
+                       mean.intensity =  mean(x$intensity),
+                       time.deg = unique(x$time.deg))})
+@
+
+
+<<'figsiref-MB-self-degradation-water-EtOH', eval=FALSE, echo=FALSE>>=
+ggplot(df.abs.selfdeg %>%
+          # this hack pretty-prints H2O using chemfig
+          # the plus sign needs spaces otherwise chemfig thinks it's a triple-bond
+          mutate(solvent = paste0("\\ch{", sub("\\+", " + ", solvent), "}")) %>%
+          filter(time.deg %in% c(seq(0, 9), seq(10, 240, 10), seq(243, 252)))) +
+   facet_wrap(~solvent) +
+   geom_path(aes(x = wavelength, 
+                 y = intensity, 
+                 group = sampleid,
+                 colour = time.deg),
+             size = 0.1) +
+   ## labelled arrows showing direction of "time" for MB peak
+   geom_segment(aes(x = 720, xend = 720, 
+                    y = 0.68, yend = 0.54),
+                arrow = arrow(length = unit(0.015, "npc"))) +
+   annotate("text", x = 722, y = 0.71, label = "$t$", size = 3.5) +
+   labs(x = "$\\lambda/\\unit{\\nm}$", 
+        y = "$A/\\text{au}$") +
+   theme_singlecolumn() +
+   theme(legend.position = "none")
+@
+
+<<'figsiref-MB-self-degradation-water', eval=FALSE, echo=FALSE>>=
+ggplot(df.abs.selfdeg %>%
+          filter(time.deg %in% c(seq(0, 9), seq(10, 240, 10), seq(243, 252))) %>%
+          filter(solvent == "H2O")) +
+   geom_path(aes(x = wavelength, 
+                 y = intensity, 
+                 group = sampleid,
+                 colour = time.deg),
+             size = 0.1) +
+   ## labelled arrows showing direction of "time" for MB peak
+   geom_segment(aes(x = 720, xend = 720, 
+                    y = 0.70, yend = 0.54),
+                arrow = arrow(length = unit(0.015, "npc"))) +
+   annotate("text", x = 722, y = 0.73, label = "$t$", size = 3.5) +
+   labs(x = "$\\lambda/\\unit{\\nm}$", 
+        y = "$A/\\text{au}$") +
+   theme_singlecolumn() +
+   theme(legend.position = "none")
+@
+
+<<'figsiref-MB-self-degradation-time', eval=FALSE, echo=FALSE>>=
+ggplot(data = MB.main.absmean %>%
+          mutate(solvent = paste0("\\ch{", sub("\\+", " + ", solvent), "}"))) +
+   stat_smooth(aes(x = time.deg, y = mean.intensity, group = solvent),
+               method = "lm",
+               size = 0.65,
+               se = TRUE) +
+   geom_point(aes(x = time.deg, y = mean.intensity, colour = solvent),
+              size = 0.5,
+              alpha = 0.5) +
+   coord_cartesian(ylim = c(0, max(MB.main.absmean$mean.intensity))) +
+   labs(x = "$t/\\unit{\\minute}$",
+        y = paste0("Mean abs at \\qty{", paste(MB.band, MB.bandwidth, sep = "+-"), "}{\\nm}")) +
+   theme_singlecolumn() +
+   theme(legend.position = c(0.98, 0.02),
+         legend.justification = c(1, 0))
+@
+
+
+
+<<'figsiref-MB-N02A-small-nostir-photodegradation', eval=FALSE, echo=FALSE>>=
+nth.spectra <- 1
+this.data <- 
+   pc.abs.small.N02A.nostir %>%
+   filter(time.abs %in% seq(0, length(unique(pc.abs.small.N02A.nostir$time.abs)), by = nth.spectra))
+this.condensed <-
+   condensed.abs.small.N02A.nostir %>%
+   filter(spectra < 150)
+this.ceiling <- ceiling.pc.abs.small.N02A.nostir
+this.fityk <- 
+   fityk.peaks.small.N02A.nostir.MB.max %>%
+   filter(spectra < 150)
+p <- 
+   ggplot() +
+   ### TAUC ANALYSIS
+   ## highlight of MB abs peak
+   geom_rect(aes(xmin = wavelength2energy(MB.band - 0.5 * MB.bandwidth),
+                 xmax = wavelength2energy(MB.band + 0.5 * MB.bandwidth)),
+             ymin = 0,
+             ymax = 0.8,
+             fill = "#F9BC00", 
+             colour = "#0B096C") +
+   ## Line segments that help the reader to connect the bandgap inset
+   geom_curve(aes(x = max(this.condensed$fit.Eg, na.rm=T),
+                  y = 0,
+                  xend = 2.9,
+                  yend = 1.85),
+              curvature = 0.5, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   geom_curve(aes(x = min(this.condensed$fit.Eg, na.rm=T),
+                  y = 0,
+                  xend = 2.9,
+                  yend = 0.55),
+              curvature = 0.52, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   ## Line segments that help the reader to connect the MB inset
+   geom_curve(aes(x = wavelength2energy(MB.band + 0.5 * MB.bandwidth),
+                  y = 0,
+                  xend = 2,
+                  yend = 3.68),
+              curvature = -0.5, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   geom_curve(aes(x = wavelength2energy(MB.band + 0.5 * MB.bandwidth),
+                  y = 0.65,
+                  xend = 2,
+                  yend = 6.92),
+              curvature = -0.75, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   ## MAIN DATA
+   geom_line(data = this.data,
+             aes(x = eV, 
+                 y = sqabs, 
+                 group = sampleid, 
+                 colour = time.exp,
+                 alpha = -time.exp)) +
+   ## highlight first spectrum
+   geom_line(data = this.data %>% 
+                filter(spectra == 0),
+             aes(x = eV, # wavelength, 
+                 y = sqabs), # intensity),
+             colour = alpha("red", 0.75)) +
+   ## highlight last spectrum
+   geom_line(data = this.data %>% 
+                filter(spectra == max(spectra)),
+             aes(x = eV, # wavelength, 
+                 y = sqabs), #intensity),
+             colour = alpha("red", 0.75)) +
+   ## highlight Tauc lines intersecting with x-axis
+   ## drawn *behind* the linear fits
+   geom_segment(aes(x = min(this.condensed$fit.Eg, na.rm=T), 
+                    xend = max(this.condensed$fit.Eg, na.rm=T), 
+                    y = 0,
+                    yend = 0),
+                # make the line a little thicker
+                size = 0.75,
+                colour = "#4387BF") + 
+   ## Tauc linear fits
+   geom_smooth(data = subset(this.ceiling, fitted == TRUE),
+               aes(x = eV, 
+                   y = sqabs, 
+                   group = sampleid),
+               method = "lm",
+               se = FALSE,
+               size = 0.2,
+               colour = alpha("#D5B450", 0.75), 
+               linetype = 1,
+               fullrange = TRUE) +
+   ## labelled arrows showing direction of "time" for bandgaps and MB peak
+   geom_segment(aes(x = 4.05, xend = 3.80, 
+                    y = 0.5, yend = 0.5),
+                arrow = arrow(length = unit(0.015, "npc"))) +
+   annotate("text", x = 4.08, y = 0.5, label = "$t$", size = 3.5) +
+   geom_segment(aes(x = 1.75, xend = 1.75,
+                    y = 0.48, yend = 0.18),
+                arrow = arrow(length = unit(0.015, "npc"))) +
+   annotate("text", x = 1.755, y = 0.60, label = "$t$", size = 3.5) +
+   labs(x = "$E/\\unit{\\eV}$", 
+        y = "$A^2$") +
+   scale_x_continuous(breaks = seq(1, 5, 0.5),
+                      sec.axis = 
+                         sec_axis(~ 1239.842 / .,
+                                  name = "$\\lambda/\\unit{\\nm}$")) +
+   # Note that sqrt y-axis visually negates sqabs, while keeping the sqabs axis numbering
+   scale_y_sqrt(expand = c(0, 0.05),
+                breaks = seq(0, 8)) +
+   coord_cartesian(xlim = c(1.5, 4.2),
+                   ylim = c(0, 7.5)) +
+   theme_singlecolumn() +
+   theme(legend.position = "none")
+p.mbabs.fityk <- ggplot() +
+   geom_errorbar(data = this.fityk %>% 
+                    filter(this.fityk$peakno %% 2 == 1),
+                 colour = alpha("#0B096C", 0.2),
+                 size = 0.2,
+                 aes(x = spectra, 
+                     ymin = errors_min(height),
+                     ymax = errors_max(height),
+                     group = 1)) +
+   # first point, highlighted
+   geom_point(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1) %>%
+                 filter(spectra == 0),
+              size = 1.1, # 1.75,
+              colour = alpha("red", 0.30),
+              aes(spectra,
+                  height)) +
+   # last point, highlighted
+   geom_point(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1) %>%
+                 filter(spectra == max(spectra)),
+              size = 1.1, # 1.75,
+              colour = alpha("red", 0.30),
+              aes(spectra,
+                  height)) +
+   geom_line(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1),
+              colour = "#0B096C",
+              size = 0.2,
+              aes(spectra, 
+                  height,
+                  group = 1)) +
+   # label for LaTeX figure label
+   geom_text(aes(label = "\\sffamily\\footnotesize\\bfseries (a)",
+                 x = this.fityk %>% filter(this.fityk$peakno %% 2 == 1) %>% select(spectra) %>% max(na.rm=T),
+                 y = this.fityk %>% filter(this.fityk$peakno %% 2 == 1) %>% select(height) %>% max(na.rm=T)),
+             size = 3.8,
+             hjust = 1, vjust = 1) +
+   labs(x = "$t/\\unit{\\minute}$",
+        y = "$A/\\text{au}$") +
+   scale_x_continuous() +
+   scale_y_continuous() +
+   theme_singlecolumn() +
+   theme(legend.position = "none",
+         # make area outside panel transparent
+         plot.background = 
+            element_rect(fill = NA,
+                         colour = NA))
+p.edge <- ggplot() +
+   geom_errorbar(data = this.condensed,
+                 size = 0.2,
+                 colour = alpha("#4387BF", 0.2),
+                 aes(x = spectra, 
+                     ymin = errors_min(fit.Eg),
+                     ymax = errors_max(fit.Eg))) +
+   # highlight first point
+   geom_point(data = this.condensed %>%
+                 filter(spectra == 0),
+              size = 1.25,
+              colour = alpha("red", 0.30),
+              aes(x = spectra, 
+                  y = fit.Eg)) +
+   geom_point(data = this.condensed,
+              shape = 21,
+              size = 0.15,
+              fill = "#D5B450",
+              colour = "#4387BF",
+              aes(x = spectra, 
+                  y = fit.Eg)) +
+   # arrow pointing to scale
+   geom_segment(aes(x = 115, xend = 90,
+                    y = 3.4, yend = 3.4),
+                colour = "#4387BF",
+                size = 1,
+                arrow = arrow(length = unit(0.040, "npc"))) +
+   # label for LaTeX figure label
+   geom_text(aes(label = "\\sffamily\\footnotesize\\bfseries (b)",
+                 x = max(this.condensed$spectra, na.rm=T),
+                 y = max(this.condensed$fit.Eg, na.rm=T)),
+             size = 3.8,
+             hjust = 1, vjust = 1) +
+   labs(x = "$t$/\\unit{\\minute}",
+        y = "$E_\\text{g}$/\\unit{\\eV}") +
+   scale_x_continuous() +
+   theme_singlecolumn() +
+   theme(legend.position = "none",
+         # make area outside panel transparent
+         plot.background = 
+            element_rect(fill = NA,
+                         colour = NA))
+p.edge.diam <- ggplot() +
+   geom_errorbar(data = this.condensed %>% 
+                    filter(spectra <= subset(cutoffs, sample == "N02A-small-nostir")$diameter),
+                 size = 0.2,
+                 colour = alpha("#D5B450", 0.2),
+                 aes(x = spectra, 
+                     ymin = errors_min(fit.np.diam),
+                     ymax = errors_max(fit.np.diam))) +
+   geom_point(data = this.condensed %>% 
+                 filter(spectra <= subset(cutoffs, sample == "N02A-small-nostir")$diameter),
+              size = 0.1,
+              colour = "#D5B450",
+              aes(x = spectra, 
+                  y = fit.np.diam)) +
+   # arrow pointing to scale
+   geom_segment(aes(x = 125, xend = 150,
+                    y = 5.0, yend = 5.0),
+                colour = "#D5B450",
+                size = 1,
+                arrow = arrow(length = unit(0.040, "npc"))) +
+   labs(x = "$t/\\unit{\\minute}$",
+        y = "$d/\\unit{\\nm}$") +
+   scale_x_continuous() +
+   scale_y_continuous(position = "right") +
+   coord_cartesian(xlim = c(0, max(this.condensed$spectra))) +
+   theme_singlecolumn() +
+   theme(legend.position = "none",
+         panel.grid = element_blank(),
+         axis.title.x = element_blank(),
+         axis.text.x = element_blank(),
+         # make plot background transparent
+         panel.background = element_rect(fill = NA, colour = NA),
+         # make area outside panel transparent
+         plot.background = 
+            element_rect(fill = NA,
+                         colour = NA))
+vp.p <- viewport(width = 1, height = 1, x = 0, y = 0, just = c("left", "bottom"))
+vp.edge <- 
+   viewport(width = 0.30, height = 0.30, 
+            x = 0.25, y = 0.52, #0.55, 
+            just = c("left", "top"))
+vp.edge.diam <- 
+   # due to different width of axis text and titles, width needs to be adjusted here
+   # due to suppression of x text/title, the height needs to be decreased here
+   viewport(width  = 0.286,
+            height = 0.230,
+            x = 0.306, y = 0.52,
+            just = c("left", "top"))
+vp.mbabs.fityk <- 
+   viewport(width = 0.30, height = 0.30, 
+            x = 0.20, y = 0.58, 
+            just = c("left", "bottom"))
+print(p, vp = vp.p)
+print(p.edge, vp = vp.edge)
+print(p.edge.diam, vp = vp.edge.diam)
+print(p.mbabs.fityk, vp = vp.mbabs.fityk)
+@
+
+
+
+
+<<'figsiref-MB-N04H-medium-nostir-photodegradation', eval=FALSE, echo=FALSE>>=
+nth.spectra <- 1
+this.data <- 
+   pc.abs.medium.N04H.nostir %>%
+   filter(time.abs %in% seq(0, length(unique(pc.abs.medium.N04H.nostir$time.abs)), by = nth.spectra))
+this.condensed <- condensed.abs.medium.N04H.nostir
+this.ceiling <- ceiling.pc.abs.medium.N04H.nostir
+this.fityk <- 
+   fityk.peaks.medium.N04H.nostir.MB.max %>%
+   filter(spectra < 150)
+### Apply a correction: five bandgap values below 3.42 eV are clear fit outliers...
+criterion <- which(condensed.abs.medium.N04H.nostir$fit.Eg < 3.42)
+this.condensed$fit.Eg[criterion] <- as.numeric(NA)
+# and replace the same positions of fit.np.diam with NAs...
+this.condensed$fit.np.diam[criterion] <- as.numeric(NA)
+# and finally, drop the linear fits for the corresponding spectra.
+this.ceiling <- this.ceiling[-which(this.ceiling$spectra %in% criterion), ]
+this.condensed <- 
+   this.condensed %>%
+   filter(spectra < 150)
+# :: this plot includes every nth spectra
+p <- 
+   ggplot() +
+   ### TAUC ANALYSIS
+   ## highlight of MB abs peak
+   geom_rect(aes(xmin = wavelength2energy(MB.band - 0.5 * MB.bandwidth),
+                 xmax = wavelength2energy(MB.band + 0.5 * MB.bandwidth)),
+             ymin = 0,
+             ymax = 0.8,
+             fill = "#F9BC00", 
+             colour = "#0B096C") +
+   ## Line segments that help the reader to connect the bandgap inset
+   geom_curve(aes(x = max(this.condensed$fit.Eg, na.rm=T),
+                  y = 0,
+                  xend = 2.9,
+                  yend = 1.85),
+              curvature = 0.5, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   geom_curve(aes(x = min(this.condensed$fit.Eg, na.rm=T),
+                  y = 0,
+                  xend = 2.9,
+                  yend = 0.55),
+              curvature = 0.52, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   ## Line segments that help the reader to connect the MB inset
+   geom_curve(aes(x = wavelength2energy(MB.band + 0.5 * MB.bandwidth),
+                  y = 0,
+                  xend = 2,
+                  yend = 3.68),
+              curvature = -0.5, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   geom_curve(aes(x = wavelength2energy(MB.band + 0.5 * MB.bandwidth),
+                  y = 0.65,
+                  xend = 2,
+                  yend = 6.92),
+              curvature = -0.75, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   ## MAIN DATA
+   geom_line(data = this.data,
+             aes(x = eV, 
+                 y = sqabs, 
+                 group = sampleid, 
+                 colour = time.exp,
+                 alpha = -time.exp)) +
+   ## highlight first spectrum
+   geom_line(data = this.data %>% 
+                filter(spectra == 0),
+             aes(x = eV, # wavelength, 
+                 y = sqabs), # intensity),
+             colour = alpha("red", 0.75)) +
+   ## highlight last spectrum
+   geom_line(data = this.data %>% 
+                filter(spectra == max(spectra)),
+             aes(x = eV, # wavelength, 
+                 y = sqabs), #intensity),
+             colour = alpha("red", 0.75)) +
+   ## highlight Tauc lines intersecting with x-axis
+   ## drawn *behind* the linear fits
+   geom_segment(aes(x = min(this.condensed$fit.Eg, na.rm=T), 
+                    xend = max(this.condensed$fit.Eg, na.rm=T), 
+                    y = 0,
+                    yend = 0),
+                # make the line a little thicker
+                size = 0.75,
+                colour = "#4387BF") + 
+   ## Tauc linear fits
+   geom_smooth(data = subset(this.ceiling, fitted == TRUE),
+               aes(x = eV, 
+                   y = sqabs, 
+                   group = sampleid),
+               method = "lm",
+               se = FALSE,
+               size = 0.2,
+               colour = alpha("#D5B450", 0.75), 
+               linetype = 1,
+               fullrange = TRUE) +
+   ## labelled arrows showing direction of "time" for bandgaps and MB peak
+   geom_segment(aes(xend = 3.65, x = 3.65 + 0.25,
+                    y = 0.02, yend = 0.02),
+                arrow = arrow(length = unit(0.015, "npc"))) +
+   annotate("text", x = 3.65 + 0.25 + 0.03, y = 0.02, label = "$t$", size = 3.5) +
+   geom_segment(aes(x = 1.75, xend = 1.75,
+                    y = 0.48, yend = 0.18),
+                arrow = arrow(length = unit(0.015, "npc"))) +
+   annotate("text", x = 1.755, y = 0.60, label = "$t$", size = 3.5) +
+   labs(x = "$E/\\unit{\\eV}$", 
+        y = "$A^2$") +
+   scale_x_continuous(breaks = seq(1, 5, 0.5),
+                      sec.axis = 
+                         sec_axis(~ 1239.842 / .,
+                                  name = "$\\lambda/\\unit{\\nm}$")) +
+   # Note that sqrt y-axis visually negates sqabs, while keeping the sqabs axis numbering
+   scale_y_sqrt(expand = c(0, 0.05),
+                breaks = seq(0, 8)) +
+   coord_cartesian(xlim = c(1.5, 4.2),
+                   ylim = c(0, 7.5)) +
+   theme_singlecolumn() +
+   theme(legend.position = "none")
+p.mbabs.fityk <- ggplot() +
+   geom_errorbar(data = this.fityk %>% 
+                    filter(this.fityk$peakno %% 2 == 1),
+                 colour = alpha("#0B096C", 0.2),
+                 size = 0.2,
+                 aes(x = spectra, 
+                     ymin = errors_min(height),
+                     ymax = errors_max(height),
+                     group = 1)) +
+   geom_line(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1),
+              colour = "#0B096C",
+              size = 0.2,
+              aes(spectra, 
+                  height,
+                  group = 1)) +
+   # first point, highlighted
+   geom_point(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1) %>%
+                 filter(spectra == 0),
+              size = 1.75,
+              colour = alpha("red", 0.30),
+              aes(spectra,
+                  height)) +
+   # last point, highlighted
+   geom_point(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1) %>%
+                 filter(spectra == max(spectra)),
+              size = 1.75,
+              colour = alpha("red", 0.30),
+              aes(spectra,
+                  height)) +
+   geom_line(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1),
+              colour = "#0B096C",
+              size = 0.2,
+              aes(spectra, 
+                  height,
+                  group = 1)) +
+   # label for LaTeX figure label
+   geom_text(aes(label = "\\sffamily\\footnotesize\\bfseries (a)",
+                 x = this.fityk %>% filter(this.fityk$peakno %% 2 == 1) %>% select(spectra) %>% max(na.rm=T),
+                 y = this.fityk %>% filter(this.fityk$peakno %% 2 == 1) %>% select(height) %>% max(na.rm=T)),
+             size = 3.8,
+             hjust = 1, vjust = 1) +
+   scale_x_continuous() +
+   labs(x = "$t/\\unit{\\minute}$",
+        y = "$A/\\text{au}$") +
+   theme_singlecolumn() +
+   theme(legend.position = "none",
+         # make area outside panel transparent
+         plot.background = 
+            element_rect(fill = NA,
+                         colour = NA))
+p.edge <- ggplot() +
+   geom_errorbar(data = this.condensed,
+                 size = 0.2,
+                 colour = alpha("#4387BF", 0.2),
+                 aes(x = spectra, 
+                     ymin = errors_min(fit.Eg),
+                     ymax = errors_max(fit.Eg))) +
+   # highlight first point
+   geom_point(data = this.condensed %>%
+                 filter(spectra == 0),
+              size = 1.25,
+              colour = alpha("red", 0.30),
+              aes(x = spectra, 
+                  y = fit.Eg)) +
+   geom_point(data = this.condensed,
+              shape = 21,
+              size = 0.15,
+              fill = "#D5B450",
+              colour = "#4387BF",
+              aes(x = spectra, 
+                  y = fit.Eg)) +
+   # arrow pointing to scale
+   geom_segment(aes(x = 14, xend = 0,
+                    y = 3.45, yend = 3.45),
+                colour = "#4387BF",
+                size = 1,
+                arrow = arrow(length = unit(0.035, "npc"))) +
+   labs(x = "$t$/\\unit{\\minute}",
+        y = "$E_\\text{g}$/\\unit{\\eV}") +
+   coord_cartesian(ylim = c(3.425, 3.465)) +
+   scale_x_continuous() +
+   theme_singlecolumn() +
+   theme(legend.position = "none",
+         # make area outside panel transparent
+         plot.background = 
+            element_rect(fill = NA,
+                         colour = NA))
+p.edge.diam <- ggplot() +
+   geom_errorbar(data = this.condensed %>% 
+                    filter(spectra <= subset(cutoffs, sample == "N04H-medium-nostir")$diameter),
+                 size = 0.2,
+                 colour = alpha("#D5B450", 0.2),
+                 aes(x = spectra, 
+                     ymin = errors_min(fit.np.diam),
+                     ymax = errors_max(fit.np.diam))) +
+   geom_point(data = this.condensed %>% 
+                 filter(spectra <= subset(cutoffs, sample == "N04H-medium-nostir")$diameter),
+              size = 0.1,
+              colour = "#D5B450",
+              aes(x = spectra, 
+                  y = fit.np.diam)) +
+   # arrow pointing to scale
+   geom_segment(aes(x = 47, xend = 74,
+                    y = 6.68, yend = 6.68),
+                colour = "#D5B450",
+                size = 1,
+                arrow = arrow(length = unit(0.050, "npc"))) +
+   # label for LaTeX figure label
+   geom_text(aes(label = "\\sffamily\\footnotesize\\bfseries (b)",
+                 x = max(this.condensed$spectra, na.rm=T),
+                 y = max(this.condensed$fit.np.diam, na.rm=T)),
+             size = 3.8,
+             hjust = 1, vjust = 1) +
+   labs(x = "$t/\\unit{\\minute}$",
+        y = "$d/\\unit{\\nm}$") +
+   scale_x_continuous() +
+   scale_y_continuous(position = "right") +
+   coord_cartesian(ylim = c(5.85, 6.95),
+                   xlim = c(0, max(this.condensed$spectra))) +
+   theme_singlecolumn() +
+   theme(legend.position = "none",
+         panel.grid = element_blank(),
+         axis.title.x = element_blank(),
+         axis.text.x = element_blank(),
+         # make plot background transparent
+         panel.background = element_rect(fill = NA, colour = NA),
+         # make area outside panel transparent
+         plot.background = 
+            element_rect(fill = NA,
+                         colour = NA))
+vp.p <- viewport(width = 1, height = 1, x = 0, y = 0, just = c("left", "bottom"))
+vp.edge <- 
+   viewport(width = 0.30, height = 0.30, 
+            x = 0.25, y = 0.52, #0.55, 
+            just = c("left", "top"))
+vp.edge.diam <- 
+   # due to different width of axis text and titles, width needs to be adjusted here
+   # due to suppression of x text/title, the height needs to be decreased here
+   viewport(width  = 0.300, 
+            height = 0.230, 
+            x = 0.316, y = 0.52,
+            just = c("left", "top"))
+vp.mbabs.fityk <- 
+   viewport(width = 0.30, height = 0.30, 
+            x = 0.20, y = 0.58, 
+            just = c("left", "bottom"))
+print(p, vp = vp.p)
+print(p.edge, vp = vp.edge)
+print(p.edge.diam, vp = vp.edge.diam)
+print(p.mbabs.fityk, vp = vp.mbabs.fityk)
+@
+
+
+
+
+<<'figsiref-MB-N02A-large-nostir-photodegradation', eval=FALSE, echo=FALSE>>=
+nth.spectra <- 1
+this.data <- 
+   pc.abs.large.N02A.nostir %>%
+   filter(time.abs %in% seq(0, length(unique(pc.abs.large.N02A.nostir$time.abs)), by = nth.spectra))
+this.condensed <- 
+   condensed.abs.large.N02A.nostir %>%
+   filter(spectra < 150)
+this.ceiling <- ceiling.pc.abs.large.N02A.nostir
+this.fityk <- 
+   fityk.peaks.large.N02A.nostir.MB.max %>%
+   filter(spectra < 150)
+# :: this plot includes every nth spectra
+p <- 
+   ggplot() +
+   ### TAUC ANALYSIS
+   ## highlight of MB abs peak
+   geom_rect(aes(xmin = wavelength2energy(MB.band - 0.5 * MB.bandwidth),
+                 xmax = wavelength2energy(MB.band + 0.5 * MB.bandwidth)),
+             ymin = 0,
+             ymax = 0.8,
+             fill = "#F9BC00", 
+             colour = "#0B096C") +
+   ## Line segments that help the reader to connect the bandgap inset
+   geom_curve(aes(x = max(this.condensed$fit.Eg, na.rm=T),
+                  y = 0,
+                  xend = 2.9,
+                  yend = 1.85),
+              curvature = 0.5, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   geom_curve(aes(x = min(this.condensed$fit.Eg, na.rm=T),
+                  y = 0,
+                  xend = 2.9,
+                  yend = 0.55),
+              curvature = 0.52, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   ## Line segments that help the reader to connect the MB inset
+   geom_curve(aes(x = wavelength2energy(MB.band + 0.5 * MB.bandwidth),
+                  y = 0,
+                  xend = 2,
+                  yend = 3.68),
+              curvature = -0.5, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   geom_curve(aes(x = wavelength2energy(MB.band + 0.5 * MB.bandwidth),
+                  y = 0.65,
+                  xend = 2,
+                  yend = 6.92),
+              curvature = -0.75, 
+              angle = 90, 
+              ncp = 5,
+              linetype = "dashed",
+              colour = alpha("gray30", 0.6)) +
+   ## MAIN DATA
+   geom_line(data = this.data,
+             aes(x = eV, 
+                 y = sqabs, 
+                 group = sampleid, 
+                 colour = time.exp,
+                 alpha = -time.exp)) +
+   ## highlight first spectrum
+   geom_line(data = this.data %>% 
+                filter(spectra == 0),
+             aes(x = eV, # wavelength, 
+                 y = sqabs), # intensity),
+             colour = alpha("red", 0.75)) +
+   ## highlight last spectrum
+   geom_line(data = this.data %>% 
+                filter(spectra == max(spectra)),
+             aes(x = eV, # wavelength, 
+                 y = sqabs), #intensity),
+             colour = alpha("red", 0.75)) +
+   ## highlight Tauc lines intersecting with x-axis
+   ## drawn *behind* the linear fits
+   geom_segment(aes(x = min(this.condensed$fit.Eg, na.rm=T), 
+                    xend = max(this.condensed$fit.Eg, na.rm=T), 
+                    y = 0,
+                    yend = 0),
+                # make the line a little thicker
+                size = 0.75,
+                colour = "#4387BF") + 
+   ## Tauc linear fits
+   geom_smooth(data = subset(this.ceiling, fitted == TRUE),
+               aes(x = eV, 
+                   y = sqabs, 
+                   group = sampleid),
+               method = "lm",
+               se = FALSE,
+               size = 0.2,
+               colour = alpha("#D5B450", 0.75), 
+               linetype = 1,
+               fullrange = TRUE) +
+   ## labelled arrows showing direction of "time" for bandgaps and MB peak
+   geom_segment(aes(x = 3.8, xend = 3.55, 
+                    y = 1.75, yend = 1.75),
+                arrow = arrow(length = unit(0.015, "npc"))) +
+   annotate("text", x = 3.83, y = 1.75, label = "$t$", size = 3.5) +
+   geom_segment(aes(x = 1.75, xend = 1.75,
+                    y = 0.48, yend = 0.18),
+                arrow = arrow(length = unit(0.015, "npc"))) +
+   annotate("text", x = 1.755, y = 0.60, label = "$t$", size = 3.5) +
+   labs(x = "$E/\\unit{\\eV}$", 
+        y = "$A^2$") +
+   scale_x_continuous(breaks = seq(1, 5, 0.5),
+                      sec.axis = 
+                         sec_axis(~ 1239.842 / .,
+                                  name = "$\\lambda/\\unit{\\nm}$")) +
+   # Note that sqrt y-axis visually negates sqabs, while keeping the sqabs axis numbering
+   scale_y_sqrt(expand = c(0, 0.05),
+                breaks = seq(0, 8)) +
+   coord_cartesian(xlim = c(1.5, 4.2),
+                   ylim = c(0, 7.5)) +
+   theme_singlecolumn() +
+   theme(legend.position = "none")
+p.mbabs.fityk <- ggplot() +
+   geom_errorbar(data = this.fityk %>% 
+                    filter(this.fityk$peakno %% 2 == 1),
+                 colour = alpha("#0B096C", 0.2),
+                 size = 0.2,
+                 aes(x = spectra, 
+                     ymin = errors_min(height),
+                     ymax = errors_max(height),
+                     group = 1)) +
+   # first point, highlighted
+   geom_point(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1) %>%
+                 filter(spectra == 0),
+              size = 1.1, # 1.75,
+              colour = alpha("red", 0.30),
+              aes(spectra,
+                  height)) +
+   # last point, highlighted
+   geom_point(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1) %>%
+                 filter(spectra == max(spectra)),
+              size = 1.1, # 1.75,
+              colour = alpha("red", 0.30),
+              aes(spectra,
+                  height)) +
+   geom_line(data = this.fityk %>% 
+                 filter(this.fityk$peakno %% 2 == 1),
+              #shape = 21,
+              #fill = "#F9BC00",
+              colour = "#0B096C",
+              size = 0.2,
+              aes(spectra, 
+                  height,
+                  group = 1)) +
+   # label for LaTeX figure label
+   geom_text(aes(label = "\\sffamily\\footnotesize\\bfseries (a)",
+                 x = this.fityk %>% filter(this.fityk$peakno %% 2 == 1) %>% select(spectra) %>% max(na.rm=T),
+                 y = this.fityk %>% filter(this.fityk$peakno %% 2 == 1) %>% select(height) %>% max(na.rm=T)),
+             size = 3.8,
+             hjust = 1, vjust = 1) +
+   labs(x = "$t/\\unit{\\minute}$",
+        y = "$A/\\text{au}$") +
+   scale_x_continuous() +
+   theme_singlecolumn() +
+   theme(legend.position = "none",
+         # make area outside panel transparent
+         plot.background = 
+            element_rect(fill = NA,
+                         colour = NA))
+p.edge <- ggplot() +
+   geom_errorbar(data = this.condensed,
+                 size = 0.2,
+                 colour = alpha("#4387BF", 0.2),
+                 aes(x = spectra, 
+                     ymin = errors_min(fit.Eg),
+                     ymax = errors_max(fit.Eg))) +
+   # highlight first point
+   geom_point(data = this.condensed %>%
+                 filter(spectra == 0),
+              size = 1.25,
+              colour = alpha("red", 0.30),
+              aes(x = spectra, 
+                  y = fit.Eg)) +
+   geom_point(data = this.condensed,
+              shape = 21,
+              size = 0.15,
+              fill = "#D5B450",
+              colour = "#4387BF",
+              aes(x = spectra, 
+                  y = fit.Eg)) +
+   labs(x = "$t$/\\unit{\\minute}",
+        y = "$E_\\text{g}$/\\unit{\\eV}") +
+   coord_cartesian(ylim = c(3.38, 3.435)) +
+   scale_x_continuous() +
+   theme_singlecolumn() +
+   theme(legend.position = "none",
+         # make area outside panel transparent
+         plot.background = 
+            element_rect(fill = NA,
+                         colour = NA))
+p.edge.diam <- ggplot() +
+   geom_errorbar(data = this.condensed %>% 
+                    filter(spectra <= subset(cutoffs, sample == "N02A-large-nostir")$diameter),
+                 size = 0.2,
+                 colour = alpha("#D5B450", 0.2),
+                 aes(x = spectra, 
+                     ymin = errors_min(fit.np.diam),
+                     ymax = errors_max(fit.np.diam))) +
+   geom_point(data = this.condensed %>% 
+                 filter(spectra <= subset(cutoffs, sample == "N02A-large-nostir")$diameter),
+              size = 0.1,
+              colour = "#D5B450",
+              aes(x = spectra, 
+                  y = fit.np.diam)) +
+   # label for LaTeX figure label
+   geom_text(aes(label = "\\sffamily\\footnotesize\\bfseries (b)",
+                 x = max(this.condensed$spectra, na.rm=T),
+                 y = max(this.condensed$fit.np.diam, na.rm=T)),
+             size = 3.8,
+             hjust = 1, vjust = 1) +
+   labs(x = "$t/\\unit{\\minute}$",
+        y = "$d/\\unit{\\nm}$") +
+   scale_x_continuous() +
+   scale_y_continuous(position = "right") +
+   coord_cartesian(ylim = c(6.85, 8.7),
+                   xlim = c(0, max(this.condensed$spectra))) +
+   theme_singlecolumn() +
+   theme(legend.position = "none",
+         panel.grid = element_blank(),
+         axis.title.x = element_blank(),
+         axis.text.x = element_blank(),
+         # make plot background transparent
+         panel.background = element_rect(fill = NA, colour = NA),
+         # make area outside panel transparent
+         plot.background = 
+            element_rect(fill = NA,
+                         colour = NA))
+vp.p <- viewport(width = 1, height = 1, x = 0, y = 0, just = c("left", "bottom"))
+vp.edge <- 
+   viewport(width = 0.30, height = 0.30, 
+            x = 0.25, y = 0.52, #0.55, 
+            just = c("left", "top"))
+vp.edge.diam <- 
+   # due to different width of axis text and titles, width needs to be adjusted here
+   # due to suppression of x text/title, the height needs to be decreased here
+   viewport(width  = 0.292,
+            height = 0.230,
+            x = 0.314, y = 0.52,
+            just = c("left", "top"))
+vp.mbabs.fityk <- 
+   viewport(width = 0.30, height = 0.30, 
+            x = 0.20, y = 0.58, 
+            just = c("left", "bottom"))
+print(p, vp = vp.p)
+print(p.edge, vp = vp.edge)
+print(p.edge.diam, vp = vp.edge.diam)
+print(p.mbabs.fityk, vp = vp.mbabs.fityk)
+@

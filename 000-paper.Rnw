@@ -1,0 +1,420 @@
+% This document is based on the RSC LaTeX template, but extensively modified,
+% https://www.rsc.org/journals-books-databases/journal-authors-reviewers/author-tools-services/
+% most importantly we are using LuaLaTeX instead of pdflatex in order to compile 
+% our large TiKZ/PGF plots (pdflatex cannot handle large memory requirements)
+
+\documentclass[9pt,twoside,twocolumn]{article}
+
+% ----------------------------------------------------------------------
+% Page layout
+% ----------------------------------------------------------------------
+\usepackage{extsizes}
+\usepackage{balance}
+\usepackage[left=1.5cm,right=1.5cm,top=1.785cm,bottom=2.0cm]{geometry}
+% ----------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------
+% Bibliography
+% ----------------------------------------------------------------------
+\usepackage[backend=biber,doi=true,style=chem-rsc]{biblatex}
+\addbibresource{references/library.bib}
+% modification: make DOI string a hyperlink in the list of references
+\newcommand*\doiformat[1]{\small#1}
+\DeclareFieldFormat{doi}{%
+   \mkbibacro{\small{DOI}}\addcolon\space
+   \ifhyperref{\href{https://dx.doi.org/#1}{\doiformat{#1}}}{\doiformat{#1}}%
+}
+% ----------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------
+% Fonts and symbols
+% ----------------------------------------------------------------------
+% \usepackage{luatextra} % also loads fixltx2e, fontspec, xunicode
+\usepackage[utf8]{luainputenc}
+% DO NOT use package xunicode with luatex: gives errors with tikzDevice/knitr
+% https://tex.stackexchange.com/questions/401481/charter-font-shape-undefined-with-lualatex/401658
+\usepackage{fontspec}
+\setmainfont{XCharter}
+\setromanfont{XCharter}
+\setsansfont{Liberation Sans}
+\setmonofont{Liberation Mono}
+\usepackage{textcomp} % \textdegree, \textmu, \texttrademark and some other symbols
+% ----------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------
+% Support packages - general
+% ----------------------------------------------------------------------
+\usepackage[english]{babel}
+% % modification: gitinfo2 used to help keep track of manuscript versions
+% \usepackage{gitinfo2}
+\usepackage[compact]{titlesec}
+\usepackage{sectsty}
+\usepackage{fancyhdr}
+\usepackage{csquotes}
+\usepackage{setspace} % setstretch{} used later in the preamble
+% ----------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------
+% Support packages - graphics, captions, footnotes, etc.
+% ----------------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage[%
+   format=plain,
+   justification=justified,
+   singlelinecheck=false,
+   font={stretch=1.125,small,sf},
+   labelfont=bf,
+   labelsep=space]{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+% RSC template calls for float pkg, but I cannot detect that it's used
+%\usepackage{float}
+\usepackage{fnpos} % controls the positions of footnotes
+\definecolor{cream}{RGB}{222,217,201} % RSC colour: cream
+% ----------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------
+% Support packages - tables, lists
+% ----------------------------------------------------------------------
+\usepackage{booktabs}
+\usepackage[inline]{enumitem}
+% Reset table and figure numbering in SI (S1, S2 and so on)
+% https://www.stat.berkeley.edu/~paciorek/computingTips/Customizing_numbering_pages.html
+% http://bytesizebio.net/2013/03/11/adding-supplementary-tables-and-figures-in-latex/
+\newcommand{\startsupplement}{%
+   \setcounter{table}{0}%
+   \renewcommand{\thetable}{S\arabic{table}}%
+   \setcounter{figure}{0}%
+   \renewcommand{\thefigure}{S\arabic{figure}}%
+}
+% ----------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------
+% Support packages - chemistry, science
+% ----------------------------------------------------------------------
+\usepackage{amssymb}
+\usepackage{chemformula}
+   \setchemformula{charge-style=math}
+\usepackage{siunitx}
+\sisetup{%
+   uncertainty-mode=compact,%
+   reset-text-family=false,%
+   text-family-to-math=true,%
+   range-phrase=\ensuremath{\text{ to }}%
+}
+   %https://tex.stackexchange.com/questions/56051/problem-with-options-in-declaresiunit
+   \DeclareSIUnit[per-mode=symbol]{\molar}{\mole\per\cubic\deci\metre}
+   \DeclareSIUnit[per-mode=symbol]{\micromolar}{\micro\mole\per\cubic\deci\metre}
+   \DeclareSIUnit{\Molar}{\textsc{m}}
+   \DeclareSIUnit{\vsNHE}{vs~NHE}
+   \DeclareSIUnit{\voltNHE}{\volt\vsNHE}
+\usepackage{chemfig}
+   % setatomsep has been deprecated, use \setchemfig instead
+   \setchemfig{atom sep=2em}
+   % define invisible bond (for use between the charged species)
+   \definesubmol\nobond{-[,1.2,,,draw=none]}
+% ----------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------
+% Packages that need to be called last: hyperref, cleveref etc.
+% ----------------------------------------------------------------------
+% do not use [pagebackref]{hyperref}, not stable, gives errors
+\usepackage{hyperref}
+% modication: cleveref is indispensable
+\usepackage[nameinlink]{cleveref}
+% ----------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------
+% R SETUP
+% ----------------------------------------------------------------------
+<<'R-setup', echo=F, results='hide', cache=FALSE>>=
+options(
+   tikzDefaultEngine = "luatex",
+   "tikzLualatexPackages" =
+      c("\\usepackage{tikz}",
+        "\\usepackage[active,tightpage,psfixbb]{preview}",
+        "\\PreviewEnvironment{pgfpicture}",
+        "\\setlength\\PreviewBorder{0pt}",
+        "\\usepackage{chemformula}",
+        "\\setchemformula{charge-style=math}",
+        "\\usepackage{siunitx}",
+        "\\sisetup{uncertainty-mode=compact,reset-text-family=false,text-family-to-math=true,range-phrase=\\ensuremath{\\text{ to }}}",
+        "\\DeclareSIUnit[per-mode=symbol]{\\molar}{\\mole\\per\\cubic\\deci\\metre}",
+        "\\DeclareSIUnit[per-mode=symbol]{\\micromolar}{\\micro\\mole\\per\\cubic\\deci\\metre}",
+        "\\DeclareSIUnit{\\Molar}{\\textsc{m}}",
+        "\\DeclareSIUnit{\\vsNHE}{vs~NHE}",
+        "\\DeclareSIUnit{\\voltNHE}{\\volt\\vsNHE}",
+        "\\newcommand{\\absorbance}{\\ensuremath{A}}"),
+   # tikzDevice plots would not compile without the following tikzDevice arguments
+   # https://www.rdocumentation.org/packages/tikzDevice/versions/0.12.3.1/topics/tikzDevice-package
+   # https://github.com/daqana/tikzDevice/issues/114#issuecomment-200594252
+   # https://github.com/daqana/tikzDevice/issues/46
+   "tikzDocumentDeclaration" = 
+      c("\\documentclass[9pt]{article}\n"),
+   "tikzUnicodeMetricPackages" = 
+      c("\\usepackage[utf8]{luainputenc}",
+        "\\usepackage{fontspec}",
+        "\\setmainfont{XCharter}",
+        "\\setromanfont{XCharter}",
+        "\\setsansfont{Liberation Sans}",
+        "\\setmonofont{Liberation Mono}",
+        "\\usetikzlibrary{calc}"),
+   digits   = 7,
+   width    = 52, # should fit single-column
+   continue = "  ",
+   prompt   = "> ",
+   stringsAsFactors = FALSE)
+@
+% ----------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------
+% R LOAD PACKAGES
+% ----------------------------------------------------------------------
+<<'load-R-packages', echo=FALSE, results='hide', message=FALSE>>=
+library(conflicted)
+# > conflict_scout()
+# 4 conflicts:
+# * `extract` : tidyr, magrittr
+# * `filter`  : dplyr, stats
+# * `lag`     : dplyr, stats
+# * `Position`: ggplot2, base
+conflict_prefer("extract", "magrittr")
+conflict_prefer("filter", "dplyr")
+conflict_prefer("lag", "dplyr")
+conflict_prefer("Position", "ggplot2")
+library(here)
+library(ggplot2)
+library(here)
+library(errors)
+library(magrittr)
+library(dplyr)
+library(tidyr)       # separate()
+library(stringr)     # str_detect()
+library(xtable)
+library(munsell) # mnsl(), used in some plots to create colour gradients
+library(directlabels)
+library(ggrepel)
+library(grid)
+library(knitr)
+library(cowplot) # used in TOC graphic
+opts_knit$set(
+   self.contained = FALSE,
+   child.path = '')
+opts_chunk$set(
+   dev      = 'tikz',
+   # external = TRUE only takes effect when tikz is the ONLY dev option
+   external = TRUE,
+   cache    = TRUE,
+   fig.width  = 3.40,
+   fig.height = 2.10,
+   out.width  = '3.40in',
+   fig.align  = 'center',
+   size    = 'footnotesize',
+   echo    = FALSE,
+   eval    = TRUE,
+   results = 'hide',
+   message = FALSE,
+   warning = FALSE,
+   tidy    = FALSE)
+library(common)
+library(oceanoptics)
+library(photoec)
+library(O2solubilitywater)
+@
+
+<<'renv-dependencies', echo=F, results='hide', message=FALSE>>=
+# packages not otherwise used, but needed for inclusion in renv lockfile
+library(tinytex)
+library(tikzDevice)
+@
+% ----------------------------------------------------------------------
+
+
+
+<<'theme-wideplot', child='010-theme-wideplot.Rnw'>>=
+@
+
+
+
+<<'theme-singlecolumn', child='011-theme-singlecolumn.Rnw'>>=
+@
+
+
+
+
+\begin{document}
+
+
+\pagestyle{fancy}
+\thispagestyle{plain}
+\fancypagestyle{plain}{
+   % Simple header without header graphics
+   \renewcommand{\headrulewidth}{0pt}
+}
+
+\makeFNbottom
+\makeatletter
+   \renewcommand\LARGE{\@setfontsize\LARGE{15pt}{17}}
+   \renewcommand\Large{\@setfontsize\Large{12pt}{14}}
+   \renewcommand\large{\@setfontsize\large{10pt}{12}}
+   \renewcommand\footnotesize{\@setfontsize\footnotesize{7pt}{10}}
+\makeatother
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand\footnoterule{\vspace*{1pt}% 
+\color{cream}\hrule width 3.5in height 0.4pt \color{black}\vspace*{5pt}} 
+\setcounter{secnumdepth}{5}
+
+\makeatletter 
+   \renewcommand\@makefntext[1]% 
+   {\noindent\makebox[0pt][r]{\@thefnmark\,}#1}
+\makeatother 
+\renewcommand{\figurename}{\small{Fig.}~}
+\sectionfont{\sffamily\Large}
+\subsectionfont{\normalsize}
+\subsubsectionfont{\bf}
+\setstretch{1.125}
+\setlength{\skip\footins}{0.8cm}
+\setlength{\footnotesep}{0.25cm}
+\setlength{\jot}{10pt}
+\titlespacing*{\section}{0pt}{4pt}{4pt}
+\titlespacing*{\subsection}{0pt}{15pt}{1pt}
+
+\fancyfoot{}
+% \fancyfoot[CO]{\vspace{-7.1pt}\hspace{13.2cm}}
+% \fancyfoot[CE]{\vspace{-7.2pt}}
+\fancyfoot[RO]{\footnotesize{\sffamily{\textbar \hspace{2pt}\thepage}}}
+\fancyfoot[LE]{\footnotesize{\sffamily{\thepage~\textbar}}}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\arrayrulewidth}{1pt}
+\setlength{\columnsep}{6.5mm}
+
+\makeatletter 
+   \newlength{\figrulesep} 
+   \setlength{\figrulesep}{0.5\textfloatsep} 
+   
+   \newcommand{\topfigrule}{\vspace*{-1pt}% 
+   \noindent{\color{cream}\rule[-\figrulesep]{\columnwidth}{1.5pt}} }
+
+   \newcommand{\botfigrule}{\vspace*{-2pt}% 
+   \noindent{\color{cream}\rule[\figrulesep]{\columnwidth}{1.5pt}} }
+
+   \newcommand{\dblfigrule}{\vspace*{-1pt}% 
+   \noindent{\color{cream}\rule[-\figrulesep]{\textwidth}{1.5pt}} }
+\makeatother
+
+\twocolumn[
+  \begin{@twocolumnfalse}
+   \vspace{3cm}
+   \sffamily
+   \begin{tabular}{m{4.5cm} p{13.5cm} }
+
+   \textsf{\footnotesize DOI: 10.1021/acs.jpcc.9b11229} & 
+      \noindent\LARGE{\textbf{Optical properties of ZnO quantum dots and effect of size on their photocatalytic activity$^\dag$}}\\
+   \vspace{0.3cm} & \vspace{0.3cm}\\
+
+   {\footnotesize\sffamily\textit{J.\ Phys.\ Chem.\ C} 2020, 124, 11} & 
+      \noindent\large{Taha Ahmed\textit{$^{a}$} and Tomas Edvinsson\textit{$^{b\ddag}$}} \\
+
+   \hspace{1.09in} & \noindent\normalsize{
+      Zinc oxide is a well-known metal oxide and with its direct optical band gap, it
+      provides a promising alternative to titanium oxide in photocatalytic applications.
+      \ch{ZnO} is here studied as quantum dots (QDs) where ultra-small nanoparticles of
+      \ch{ZnO} show optical quantum confinement with a band gap opening for particles below
+      \qty{9}{\nm} in diameter from the shift of the band edge energies.
+      The optical properties of growing \ch{ZnO} quantum dots are determined with
+      Tauc-analysis and a system of QDs for treatment and degradation of distributed
+      threats is analysed using an organic probe molecule, methylene blue.
+      The effect of optical properties of the QDs and the kinetics of dye degradation
+      are quantified for low-dimensional ZnO materials in the range of \qtyrange{3}{7}{\nm}
+      and show a substantial increase in photocatalytic activity compared to larger
+      \ch{ZnO} particles.
+      This is attributed to a combined effect from the increased surface area as well
+      as a quantum confinement effect that goes beyond the increased surface area.
+      The results show a significantly higher photocatalytic activity for the QDs between
+      \qtyrange[range-phrase=--]{3}{6}{\nm} with a complete decolouration of the model
+      compound, while QDs from \qty{6}{\nm} and upwards in diameter show signs of competing
+      reduction reactions.
+      Our study demonstrates that ultra-small \ch{ZnO} particles have a reactivity beyond 
+      that which is expected due to their increased surface area and also show
+      size-dependent reaction pathways which introduces the possibility for a size
+      selective catalysis.%
+   }\\
+   \end{tabular}
+   \end{@twocolumnfalse} \vspace{0.6cm}
+]
+
+
+\rmfamily
+\section*{}
+\vspace{-1cm}
+
+
+\footnotetext{\textit{$^{a}$~Department of Chemistry--{\AA}ngstr{\"o}m, Structural chemistry, Uppsala university.}}
+\footnotetext{\textit{$^{b}$~Department of Engineering Sciences, Solid state physics, Uppsala university, Sweden; tomas.edvinsson@angstrom.uu.se}}
+
+\footnotetext{%
+   \dag~The published paper and its supplementary information is available online:\newline
+   \url{https://pubs.acs.org/doi/full/10.1021/acs.jpcc.9b11229}%
+}
+
+
+% ----------------------------------------------------------------------
+% Custom LaTeX commands
+% ----------------------------------------------------------------------
+% optical absorbance
+\newcommand{\absorbance}{\ensuremath{A}}
+% ----------------------------------------------------------------------
+
+
+
+% references inside main paper (separated from refs in SI)
+\begin{refsection}
+
+% Code (data analysis)
+<<'code', child='200-code.Rnw', eval=TRUE>>=
+@
+
+% Body text
+<<'body', child='201-text.Rnw', eval=TRUE>>=
+@
+
+\printbibliography
+
+\end{refsection}
+
+
+
+
+\clearpage
+
+% no fancy footer or header in SI
+\pagestyle{empty}
+
+% references in SI
+\begin{refsection}
+% startsupplement resets figure and table numbering (S1, S2 and so on)
+\startsupplement
+
+<<'ESI-code', child='900-SI-code.Rnw', eval=TRUE>>=
+@
+
+<<'ESI-text', child='901-SI-text.Rnw', eval=TRUE>>=
+@
+
+\footnotesize{\printbibliography[title={References in SI}]}
+
+\end{refsection}
+
+\end{document}

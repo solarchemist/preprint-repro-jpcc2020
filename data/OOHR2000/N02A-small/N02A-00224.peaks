@@ -1,0 +1,4 @@
+# PeakType	Center	Height	Area	FWHM	parameters...
+%_449  Gaussian	666	0.5	17.0315	32	 0.5 666 16
+%_450  Gaussian	628	0.25	17.0315	64	 0.25 628 32
+

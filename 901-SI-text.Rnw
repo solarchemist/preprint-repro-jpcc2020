@@ -1,0 +1,232 @@
+% !Rnw root = paper.Rnw
+
+\clearpage
+\twocolumn[%
+      \vspace{0.20\paperheight}
+      \begin{center}
+         \Huge{Supplementary information}\\
+         {\Large Optical properties of ZnO quantum dots and effect of size on their photocatalytic activity}
+      \end{center}%
+]
+\newpage
+
+
+
+%%%%%%%%%%%%%%%%%%
+\section*{Methods}
+
+A series of methylene blue aqueous solutions of with concentrations of \qtylist{0.5;1;2;5;10;20;50;100}{\micro\molar} were volumetrically prepared from methylene blue (powder, VWR Prolabo, CAS 61-73-4) weighed on a Mettler AT261 balance with \qty{0.01}{\mg} resolution, quantitatively transferred and diluted to the mark in volumetric glassware with deionised water (for volumes and dilution factors, see \cref{tabsi:mb-stock-solutions}). 
+
+\begin{table*}[tbp]
+   \centering
+   \caption{MB aqueous solutions with the listed concentration and volume were prepared. The table shows calculated dilution factors, metadata such as labels and how dilute solutions were prepared from the stock. The pH was measured and found to be insensitive to dilution and mainly the same as for deionised water exposed to air, as expected. We also measured the conductivity of these solutions and found a clear dependence on concentration, as could be expected (see \cref{figsi:conductivity-MB-solutions}).}
+   \label{tabsi:mb-stock-solutions}
+   \begin{tabular}{lS[table-format=3.1]S[table-format=4.0]S[table-format=1.0]S[table-format=1.2]@{\hspace{1.5em}}l@{\hspace{1em}}l}\toprule
+      Label & $C/\unit{\micro\molar}$ & $V/\unit{\milli\litre}$ & $f_\text{dilution}$ & pH & Mother & Children\\\midrule
+      \texttt{AA} & 100 & 1000 &   & 5.99 &              & \texttt{AB}, \texttt{AC} \\
+      \texttt{AB} & 50  & 250  & 2 & 5.85 &  \texttt{AA} & \texttt{AD}              \\
+      \texttt{AC} & 20  & 50   & 5 & 6.08 &  \texttt{AA} &                          \\
+      \texttt{AD} & 10  & 100  & 5 & 5.94 &  \texttt{AB} & \texttt{AE}, \texttt{AF} \\
+      \texttt{AE} & 5   & 100  & 2 & 5.87 &  \texttt{AD} &                          \\
+      \texttt{AF} & 2   & 50   & 5 & 5.81 &  \texttt{AD} &                          \\
+      \texttt{AG} & 1   & 250  &   & 5.96 &  \texttt{} &                          \\
+      \texttt{AH} & 0.5 & 200  &   & 6.15 &  \texttt{} &                          \\
+      \bottomrule
+   \end{tabular}
+\end{table*}
+
+
+The most concentrated MB solution, \texttt{AA}, was prepared by dissolving \qty{32.01}{\mg} methylene blue (VWR) in deionised water to a volume of \qty{1000}{\ml} at RT (the weighed mass represents an error with respect to the calculated weight of $+\qty{0.08}{\percent}$). All other MB solutions were prepared by dilution from this stock solution or a derived solution as described in \cref{tabsi:mb-stock-solutions}.
+
+The pH of all dye stock solutions agreed well with the pH of distilled water (which was measured at the same experimental conditions and found to be \num{6.02}) irrespective of MB concentration. All solutions were allowed to equilibrate with air for at least two hours before measuring pH or conductivity. 
+
+
+We prepared \qty{50}{\ml} of each precursor solution, for a total reaction volume of \qty{100}{\ml}.
+
+The alkaline precursor (\ch{LiOH * H2O(s)}) was dissolved in ethanol by stirring at \qty{45}{\celsius} in a three-necked round-bottom flask under protective \ch{N2} atmosphere to minimise dissolution of \ch{CO2} and subsequent formation of lithium carbonate.
+The flask was flushed with nitrogen for approximately \qty{15}{\minute} before inserting the teflon-coated magnetic stirrer bar, approximately \qty{50}{\mL} ethanol, and the weighed amount of lithium hydroxide salt.
+The flask was kept at \qty{45}{\degreeCelsius} using a water bath.
+
+The zinc acetate precursor was dissolved in boiling ethanol at atmospheric pressure (the flask was connected to a reflux condenser). The temperature was kept at the boiling point of ethanol (\qty{78.4}{\degreeCelsius}) using a water bath.
+
+Whereas zinc acetate dissolves easily in \ch{EtOH}, lithium hydroxide is quite hard to dissolve in \ch{EtOH}. To help dissolve \ch{LiOH}, we employed a three-pronged strategy: we increased the volume of \ch{EtOH} slightly, increased the temperature to slightly above room-temperature, and flushed nitrogen gas into the headspace to decrease the formation of lithium carbonate (which precipitates easily and makes it look like the dissolution of the hydroxide is incomplete).
+Since the final volume of \ch{EtOH} could not exceed \qty{100}{\ml}, the slightly enlarged volume of \ch{EtOH} in the alkaline precursor was compensated by using less \ch{EtOH} for the acetate precursor. \Cref{tabsi:precursor-solutions} lists the amounts and weights of each precursor salt.
+
+\begin{table*}[tb]
+\centering
+\caption{Zinc acetate and lithium hydroxide were each dissolved into \ch{EtOH}, producing the following solutions. As soon as these precursor solutions were mixed zinc oxide nanoparticles form and start growing. We usually added a little more \ch{EtOH} to the alkaline precursor to improve solvation of the lithium salt, and compensated by decreasing the volume of the acetate precursor to the same amount. The important factor (to achieve reproducible \ch{ZnO} growth) is that the precursor concentrations in the reaction mixture stay constant. Tabulated concentrations are calculated based on the listed volumes.}
+\label{tabsi:precursor-solutions}
+\begin{tabular}{lS[table-format=3.2]S[table-format=1.1]S[table-format=1.4]S[table-format=2.0]S[table-format=1.2]}\toprule
+ & $M/\unit{\gram\per\mole}$ & $n/\unit{\milli\mole}$ & $m/\unit{\gram}$ & $V/\unit{\ml}$ & $C/\unit{\molar}$\\\midrule
+\ch{Zn(OAc)2 * 2 H2O} & 219.50 & 5.0 & 1.0975 & 50 & 0.10 \\
+\ch{LiOH * H2O}      &  41.96 & 7.0 & 0.2937 & 50 & 0.14 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+
+The formation of ZnO nanoparticles using an alkali and a zinc salt is remarkably reproducible, with the main complicating factor being the possible formation of lithium carbonate in the alkaline precursor (which effectively removes some unknown amount of lithium from the intended nanoparticle-forming reaction, and creates lithium carbonate particles). As such, a few words on the carbonate issue might be warranted.
+
+Whereas the solubility (in either water or ethanol) of lithium hydroxide \emph{increases} with temperature, the solubility of lithium carbonate \emph{decreases} with temperature. This means that although increasing the temperature eases the dissolution of the hydroxide, it also increases the precipitation of any unwanted carbonate. In our estimation, the solubility of lithium hydroxide in ethanol is so poor that increasing the temperature is still warranted.
+
+The solubility of lithium carbonate in water is \qty{1.33}{\gram} at \qty{25}{\degreeCelsius}, and \qty{1.54}{\gram} at \qty{0}{\degreeCelsius} (both per \qty{100}{\ml} water). The decrease in solubility with temperature points to an entropy effect: the solvation of the lithium cation and the carbonate anion in water decrease the overall entropy of the system. 
+Formation of the carbonate during dissolution will thus make it appear incomplete, and decrease the amount of dissolved lithium ion available in the solution. Clearly, we want to avoid the formation of the carbonate.
+
+To do that, lithium hydroxide salt was dissolved in EtOH at \qty{45}{\degreeCelsius} under protective nitrogen gas flow. The higher temperature and the protective gas both help decrease carbonate formation, but also increase evaporation of the solvent from the reaction mixture. 
+To avoid too much loss of solvent it is therefore important to keep the gasflow rate as low as possible during the reaction.
+
+The pH and conductivity measurements were done using a Mettler Toledo SevenGo Duo pro{\texttrademark} SG78 handheld pH/ion/conductivity meter.
+
+
+
+
+
+\section*{Results and discussion}
+
+\subsection*{Baseline spectra}
+
+\begin{figure}[tb]
+\centering
+<<'figsi-cuvette-PMMA-abs', ref.label='figsiref-cuvette-PMMA-abs', eval=TRUE, warning=FALSE>>=
+@
+\caption{Typical absorption spectrum of PMMA cuvette ($l=\qty{10}{\mm}$) containing either air, deionised water or ethanol. 
+Measured in the same configuration as during PC experiments.
+PMMA starts absorbing strongly ($A > \num{0.3}$) below \qty{280}{\nm}, with a peak around \qty{244}{\nm}. This is well below the band edge of ZnO nanoparticles.
+The first absorbance band of water is clearly visible at \qty{980}{\nm}, and EtOH has a small absorption band at \qty{910}{\nm}. 
+Neither one of these interfere with the parts of the UV or visible spectrum required to track the \ch{ZnO} band edge or the MB bands of interest. So that's good.}
+\label{figsi:cuvette-PMMA-abs}
+\end{figure}
+
+
+
+
+\begin{figure}[tbp]
+\centering
+<<'figsi-methyleneblue-water-ethanol', ref.label='figsiref-methyleneblue-water-ethanol', eval=TRUE, warning=FALSE>>=
+@
+\caption{Absorbance spectra of methylene blue dissolved in \ch{H2O} and \ch{H2O}:\ch{EtOH}, respectively, for all the dye concentrations prepared in this study. Please note that $y$-axis is square-root-transformed to improve the visibility of the lowest concentrations. Also note that spectral features outside the visible range are not shown here (see \cref{figsi:MB-self-degradation-spectra} instead).}
+\label{figsi:methyleneblue-water-ethanol}
+\end{figure}
+
+We prepared and tested two other dyes (Eriochrome black T and methyl orange) in the same manner as MB above (\cref{figsi:methyleneblue-water-ethanol}) but found that they exhibited significantly larger changes in their absorption spectra on addition of \ch{EtOH} (evidenced by shifts in peak position, poor linearity with concentration, etc.). Among these three dyes, MB was the one showing the least change by the addition of \ch{EtOH}, which warranted our choice of MB as the model pollutant in this study.
+
+
+<<'tabsi-mb-fitted', ref.label='tabsiref-MB-fitted', eval=TRUE, results='asis', cache=FALSE>>=
+@
+
+Based on our observed MB absorption coefficient spectra in both water and water/\ch{EtOH} 
+(\cref{fig:MB-abs-coefficients,tabsi:MB-fitted}), we assigned the fitted peaks:
+\begin{itemize}[itemsep=0pt]
+\item Peak no.\ 1: \qty{665}{\nm} monomer band, $n$-$\pi^\ast$, 0-0 vibronic.\\
+\item Peak no.\ 2: \qty{627}{\nm} monomer shoulder, $n$-$\pi^\ast$, 0-1 vibronic.\\
+\item Peak no.\ 3: \qty{608}{\nm} dimer band.\\
+\item Peak no.\ 4: \qty{500}{\nm} weak, unassigned.\\
+\item Peak no.\ 5: \qty{392}{\nm} very weak, unassigned.\\
+\item Peak no.\ 6: \qty{326}{\nm} weak, unassigned.\\
+\item Peak no.\ 7: \qty{292}{\nm} $\pi$-$\pi^\ast$.
+\end{itemize}
+
+One could also observe a few bands that we attribute to water: \qty{760}{\nm}, \qty{980}{\nm}
+and others that were specific to EtOH: \qty{907}{\nm} and \qty{939}{\nm}
+
+
+\begin{figure}[tbp]
+\centering
+<<'figsi-conductivity-MB-solutions', ref.label='figsiref-conductivity-MB-solutions', eval=TRUE, warning=FALSE>>=
+@
+\caption{Conductivity of methylene blue aqueous solutions of varying concentration, each one measured after equilibrating the solution in air for at least two hours.
+As expected, the conductivity increase is exponential with increasing concentration (note that the plot uses log--log axes).
+For comparison, we found the conductivity of fresh deionised water to be \qty{0.65}{\micro\siemens\per\cm}, increasing to \qty{2.35}{\micro\siemens\per\cm} after equilibrating two hours in air (the increase was likely due to dissolution of carbon dioxide forming oxonium ions and carbonic acid in solution).
+}\label{figsi:conductivity-MB-solutions}
+\end{figure}
+
+
+
+\subsection*{Self-degradation of MB under the same conditions}
+
+Self-degradation of \qty{10}{\micromolar} methylene blue dye was measured in both aqueous and \ch{H2O}:EtOH 90:10 (by volume) solution, under 1~Sun illumination (\cref{figsi:MB-self-degradation-spectra}).
+
+\begin{figure}[tbh]
+\centering
+\begin{subfigure}[b]{\linewidth}
+\caption{}
+\label{figsi:MB-self-degradation-water-EtOH}
+<<'figsi-MB-self-degradation-water-EtOH', ref.label='figsiref-MB-self-degradation-water-EtOH', eval=TRUE, warning=FALSE>>=
+@
+\end{subfigure}\\
+\begin{subfigure}[b]{\linewidth}
+\caption{}
+\label{figsi:MB-self-degradation-time}
+<<'figsi-MB-self-degradation-time', ref.label='figsiref-MB-self-degradation-time', eval=TRUE, warning=FALSE>>=
+@
+\end{subfigure}
+\caption{Self-degradation of \ch{MB(aq)} and \ch{MB(H2O:EtOH)} under 1~Sun illumination observed for just over \qty{250}{\minute}. The decreasing intensity of the main MB peak with time is apparent, but all three MB peaks decrease quite linearly with time.
+This self-degradation is likely due to UV photons breaking down the resonant structure of the dye, but it is still small considering the time-scale (corresponds to a self-degradation rate of approx \qty{1.4E-2}{\micro\molar\per\minute}).}
+\label{figsi:MB-self-degradation-spectra}
+\end{figure}
+
+
+Just as for the PC experiments, evaporation from the cuvette was allowed (as this most resembles the situation in say, a surface of water), leading to a slowly increasing total concentration of organic species in solution, while at the same time nanoparticles continually increase in size (and thus decrease in reactivity). Still, self-degradation was negligible.
+
+The mean absorbance for the strongest MB band (calculated for a \qty{10}{\nm}-wide band centered at \qty{665}{\nm}) decreased linearly from \num{0.715} to \num{0.532} in \qty{252}{\minute} (compare \cref{figsi:MB-self-degradation-time}), corresponding to \num{-7.225e-04} absorbance units per minute or \qty{1.4E-2}{\micro\molar\per\minute}.
+
+
+
+
+
+\subsection*{Tauc analysis}
+
+A Tauc fitting procedure can be quite subjective, and it is not always obvious how the straight line was fitted to the spectrally observed band edge even when both are plotted.
+
+For this reason, and also to enable us to algorithmically perform Tauc fits for hundred of spectra  at once, we strictly followed the algorithm outlined below when performing all Tauc fits reported in this paper.
+
+We decided (based mainly on the works of others in the field) to:
+
+\begin{itemize}[itemsep=0pt]
+  \item select all data points within the absorbance interval $0.2\times\max(A^2)\leq A\leq 0.7\times\max(A^2)$,
+  \item within this dataset, select those data points satisfying $\qty{3.3}{\eV}<E<\qty{4}{\eV}$ (these limits were adjusted slightly depending on the starting and final nanoparticle sizes, i.e., the spread of the band edge region), 
+  \item fit a straight line to the data in the chosen absorbance interval (for each spectrum),
+  \item calculate the intersect at the abscissa (for each spectrum).
+\end{itemize}
+
+We wrote our own code to implement this algorithm in R, and the Tauc fits themselves are also displayed in our plots.
+
+
+
+\begin{figure*}[tbp]
+\centering
+<<'figsi-MB-N02A-small-nostir-photodegradation', ref.label='figsiref-MB-N02A-small-nostir-photodegradation', eval=TRUE, fig.width=6.80, fig.height=4.20, out.width='6.80in', warning=FALSE>>=
+@
+{\phantomsubcaption\label{figsi-a:MB-N02A-small-nostir-photodegradation}}
+{\phantomsubcaption\label{figsi-b:MB-N02A-small-nostir-photodegradation}}
+\caption{Experimentally recorded absorbance spectra during photocatalysis of MB in the presence of small \ch{ZnO} nanoparticles under 1~Sun illumination. Spectra are drawn with increasingly lighter shades of blue with progressing time, with the first and last recorded spectrum highlighted in red. The clear upwards shift of the baseline over time is due to increased scattering losses due to increasing turbidity in the optical path.
+The cuvette contained methylene blue dissolved in \ch{H2O}:\ch{EtOH} in the presence of \ch{ZnO} photocatalyst (the MB aqueous solution was mixed thoroughly with the ZnO ethanol solution just prior to illumination).
+(\subref{figsi-a:MB-N02A-small-nostir-photodegradation}) shows the fitted height of the main methylene blue absorption peak vs time, and (\subref{figsi-b:MB-N02A-small-nostir-photodegradation}) shows the evolution of the \ch{ZnO} band edge and particle size as calculated from a Tauc fit of the band edge.}
+\label{figsi:MB-N02A-small-nostir-photodegradation}
+\end{figure*}
+
+
+\begin{figure*}[tbp]
+\centering
+<<'figsi-MB-N04H-medium-nostir-photodegradation', ref.label='figsiref-MB-N04H-medium-nostir-photodegradation', fig.width=6.80, fig.height=4.20, out.width='6.80in', eval=TRUE, warning=FALSE>>=
+@
+{\phantomsubcaption\label{figsi-a:MB-N04H-medium-nostir-photodegradation}}
+{\phantomsubcaption\label{figsi-b:MB-N04H-medium-nostir-photodegradation}}
+\caption{Experimentally recorded absorbance spectra during photocatalysis of MB in the presence of medium-sized \ch{ZnO} nanoparticles under 1~Sun illumination. Spectra are drawn with increasingly lighter shades of blue with progressing time, with the first and last recorded spectrum highlighted in red. The clear upwards shift of the baseline over time is due to increased scattering losses due to increasing turbidity in the optical path.
+The cuvette contained methylene blue dissolved in \ch{H2O}:\ch{EtOH} in the presence of \ch{ZnO} photocatalyst (the MB aqueous solution was mixed thoroughly with the ZnO ethanol solution just prior to illumination).
+(\subref{figsi-a:MB-N04H-medium-nostir-photodegradation}) shows the fitted height of the main methylene blue absorption peak vs time, and (\subref{figsi-b:MB-N04H-medium-nostir-photodegradation}) shows the evolution of the \ch{ZnO} band edge and particle size as calculated from a Tauc fit of the band edge.}
+\label{figsi:MB-N04H-medium-nostir-photodegradation}
+\end{figure*}
+
+
+\begin{figure*}[tbp]
+\centering
+<<'figsi-MB-N02A-large-nostir-photodegradation', ref.label='figsiref-MB-N02A-large-nostir-photodegradation', fig.width=6.80, fig.height=4.20, out.width='6.80in', eval=TRUE, warning=FALSE>>=
+@
+{\phantomsubcaption\label{figsi-a:MB-N02A-large-nostir-photodegradation}}
+{\phantomsubcaption\label{figsi-b:MB-N02A-large-nostir-photodegradation}}
+\caption{Experimentally recorded absorbance spectra during photocatalysis of MB in the presence of larger \ch{ZnO} nanoparticles under 1~Sun illumination. Spectra are drawn with increasingly lighter shades of blue with progressing time, with the first and last recorded spectrum highlighted in red. The clear upwards shift of the baseline over time is due to increased scattering losses due to increasing turbidity in the optical path.
+The cuvette contained methylene blue dissolved in \ch{H2O}:\ch{EtOH} in the presence of \ch{ZnO} photocatalyst (the MB aqueous solution was mixed thoroughly with the ZnO ethanol solution just prior to illumination).
+(\subref{figsi-a:MB-N02A-large-nostir-photodegradation}) shows the fitted height of the main methylene blue absorption peak vs time, and (\subref{figsi-b:MB-N02A-large-nostir-photodegradation}) shows the evolution of the \ch{ZnO} band edge and particle size as calculated from a Tauc fit of the band edge.}
+\label{figsi:MB-N02A-large-nostir-photodegradation}
+\end{figure*}
