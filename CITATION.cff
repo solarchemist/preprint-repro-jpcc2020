@@ -1,0 +1,29 @@
+# https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
+# https://links.solarchemist.se/shaare/NGPZxw
+cff-version: 1.2.0
+title: Reproducible code, data and preprint manuscript for Ahmed & Edvinsson, J. Phys. Chem. C 2020, 124, 11
+message: >-
+  Please cite this dataset using the metadata from
+  'preferred-citation'.
+type: dataset
+authors:
+  - given-names: Taha
+    family-names: Ahmed
+    email: taha@chepec.se
+    orcid: 'https://orcid.org/0000-0001-6717-0408'
+keywords:
+- reproducible manuscript
+- LuaLaTeX
+- R
+- knitr
+preferred-citation:
+  authors:
+    - given-names: Taha
+      family-names: Ahmed
+      orcid: 'https://orcid.org/0000-0001-6717-0408'
+    - given-names: Tomas
+      family-names: Edvinsson
+      orcid: 'https://orcid.org/0000-0003-2759-7356'
+  title: "Optical quantum confinement in ultrasmall ZnO and the effect of size on their photocatalytic activity"
+  type: article
+  doi: 10.1021/acs.jpcc.9b11229
