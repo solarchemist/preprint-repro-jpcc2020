@@ -4,7 +4,6 @@ figure/
 # ignored directories
 .Rproj.user/
 cache/
-renv/
 
 # ignored filetypes (in all subdirectories)
 *.aux
