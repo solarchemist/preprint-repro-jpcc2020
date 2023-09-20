@@ -208,13 +208,6 @@
       "Repository": "CRAN",
       "Hash": "08ab869f37e6a7741a64ab9069bcb67d"
     },
-    "git2r": {
-      "Package": "git2r",
-      "Version": "0.28.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "f64fd34026f6025de71a4354800e6d79"
-    },
     "glue": {
       "Package": "glue",
       "Version": "1.4.2",
@@ -342,8 +335,14 @@
     "photoec": {
       "Package": "photoec",
       "Version": "0.1.0.9000",
-      "Source": "unknown",
-      "Hash": "8fe78fa5ebf9e3f203eba47f60b14af6"
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "solarchemist",
+      "RemoteRepo": "photoec",
+      "RemoteRef": "cb313098463903e64976befd64c1021775e6ae09",
+      "RemoteSha": "cb313098463903e64976befd64c1021775e6ae09",
+      "Hash": "9bb952cdd7e3b55fa7e3d95616d502f6"
     },
     "pillar": {
       "Package": "pillar",
