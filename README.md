@@ -33,14 +33,14 @@ please [get in touch with me](https://solarchemist.se/contact)!.
 
 ## Requirements
 
-To reproduce this manuscript yourself, you need
+To reproduce this manuscript yourself, you will need
 
 + [TeXLive 2021](http://tug.org/texlive)
   (including [siunitx v3](https://ctan.org/pkg/siunitx),
   [biblatex](https://ctan.org/pkg/biblatex),
   [biber](https://github.com/plk/biber) and
   [latexmk](http://personal.psu.edu/jcc8/software/latexmk/)), and
-+ [R v4](https://cran.r-project.org/)
++ [R v4.0.3](https://cran.r-project.org/)
 
 As a courtesy, this repo includes a very simple bash script, `compile.sh`, that
 demonstrates how to compile this document with knitr and latexmk (tested on Ubuntu 22.04).
@@ -89,7 +89,8 @@ $ ./compile.sh
 Please note that compiling the document the first time may take several minutes.
 Subsequent runs are much faster, thanks to the caching performed by knitr.
 
-Note that compilation also creates a stand-alone PDF of each plot in the `figure/` directory.
+Note that in addition to `paper.pdf` compilation also creates a stand-alone PDF of each plot
+(inside the `figure/` directory).
 
 If you encounter problems with recompiling this manuscript,
 [I'd love to hear about it](https://solarchemist.se/contact)!
